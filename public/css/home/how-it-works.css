@@ -1,0 +1,247 @@
+
+.section-numeros {
+    width: 100%;
+    background-color: #dcd8e6;
+    padding: 140px 0;
+}
+
+.container-numeros {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.numero-item {
+    width: 22%;
+}
+
+.numero-item h3 {
+    font-size: 48px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.numero-item p {
+    font-size: 17px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.section-como-funciona {
+    width: 100%;
+    background-color: #f2f2f2;
+    padding: 100px 0;
+}
+
+.container-funciona {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-funciona {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.small-title {
+    font-size: 14px;
+    color: #777;
+}
+
+.left-funciona h2 {
+    font-size: 58px;
+    font-weight: 400;
+}
+
+.line {
+    width: 60px;
+    height: 3px;
+    background-color: #3700FF;
+}
+
+.left-funciona img {
+    width: 100%;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+
+.right-funciona {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.funciona-item h3 {
+    font-size: 42px;
+    font-weight: 500;
+    margin-bottom: 15px;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #ccc;
+    margin-bottom: 15px;
+}
+
+.funciona-item p {
+    font-size: 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* ── Mobile Pequeno (≤ 360px) ── */
+@media screen and (max-width: 360px) { 
+    .section-numeros {
+        padding: 70px 0px;
+    }
+    .section-como-funciona{
+        padding: 50px 0;
+    }
+    .container-numeros {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        gap: 20px;
+    }
+    .numero-item {
+        width: 80%;
+    }
+    .numero-item h3 {
+        font-size: 2em;
+        margin-bottom: 0;
+    }
+    .container-funciona {
+        flex-direction: column;
+    }
+    .left-funciona {
+        width: 100%;
+    }
+    .left-funciona .small-title{
+        font-size: 1em;
+    }
+    .left-funciona h2 {
+        font-size: 2em;
+    }
+    .right-funciona {
+        width: 100%;
+        padding: 30px 0;
+    }
+    .right-funciona h3 {
+        font-size: 1.4em;
+    }
+    .right-funciona p {
+        font-size: 1em;
+    }
+ }
+
+/* ── Mobile Grande (361px – 599px) ── */
+@media screen and (min-width: 361px) and (max-width: 599px) {
+    .section-numeros {
+        padding: 70px 0px;
+    }
+    .section-como-funciona{
+        padding: 50px 0;
+    }
+    .container-numeros {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        gap: 20px;
+    }
+    .numero-item {
+        width: 80%;
+    }
+    .numero-item h3 {
+        font-size: 2em;
+        margin-bottom: 0;
+    }
+    .container-funciona {
+        flex-direction: column;
+    }
+    .left-funciona {
+        width: 100%;
+    }
+    .left-funciona .small-title{
+        font-size: 1em;
+    }
+    .left-funciona h2 {
+        font-size: 2em;
+    }
+    .right-funciona {
+        width: 100%;
+        padding: 30px 0;
+    }
+    .right-funciona h3 {
+        font-size: 1.4em;
+    }
+    .right-funciona p {
+        font-size: 1em;
+    }
+ }
+
+/* ── Tablet Portrait (600px – 767px) ── */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .section-numeros {
+        padding: 70px 0px;
+    }
+    .section-como-funciona{
+        padding: 50px 0;
+    }
+    .container-numeros {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        gap: 20px;
+    }
+    .numero-item {
+        width: 80%;
+    }
+    .numero-item h3 {
+        font-size: 2em;
+        margin-bottom: 0;
+    }
+    .numero-item p {
+        font-size: 1.2em;
+    }
+    .container-funciona {
+        flex-direction: column;
+    }
+    .left-funciona {
+        width: 100%;
+    }
+    .left-funciona .small-title{
+        font-size: 1em;
+    }
+    .left-funciona h2 {
+        font-size: 2em;
+    }
+    .right-funciona {
+        width: 100%;
+        padding: 30px 0;
+    }
+    .right-funciona h3 {
+        font-size: 1.5em;
+    }
+    .right-funciona p {
+        font-size: 1.2em;
+    }
+ }
+
+
+/* ── HD (1024px – 1365px) ── */
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+    .funciona-item h3 {
+        font-size: 2em;
+    }
+ }

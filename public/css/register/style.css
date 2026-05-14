@@ -1,0 +1,376 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.main-container {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    background-color: white;
+}
+
+.form-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container {
+    width: 100%;
+    height: 10%;
+    display: flex;
+}
+
+.logo-container img {
+    width: 125px;
+    padding: 25px 0 0 25px;
+}
+
+.logo-text span {
+    color: #4F46E5;
+}
+
+.form-sub-container {
+    width: 55%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.text-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.text-container h2 {
+    font-size: 36px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+.text-container p {
+    font-size: 16px;
+    color: #8D8D8D;
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+}
+
+.signup-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.input-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 14px;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 0 12px;
+    outline: none;
+}
+
+.input-group input:focus {
+    border-color: #4F46E5;
+}
+
+.remember-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remember-container div {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.remember-container label {
+    font-size: 14px;
+    color: #000000;
+    font-family: 'Inter', sans-serif;
+}
+
+.remember-container a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #4F46E5;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-signup {
+    width: 100%;
+    padding: 15px;
+    background-color: #4F46E5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
+.already-account {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    font-family: 'Inter', sans-serif;
+    margin-top: 4px;
+}
+
+.already-account a {
+    color: #4F46E5;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 30px;
+}
+
+.footer span, .footer a {
+    font-size: 13px;
+    color: #8D8D8D;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+}
+
+.image-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-sub-container {
+    width: 95%;
+    height: 95%;
+    background-image: url('../../assets/login-background.svg');
+    border-radius: 20px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.inicio-link {
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    z-index: 1;
+}
+
+
+/* ── Mobile Pequeno (≤ 360px) ── */
+@media screen and (max-width: 360px) { 
+    .image-sub-container, .image-container {
+        display: none;
+    }
+    .form-container{
+        width: 100%;
+    }
+    .form-sub-container{
+        width: 74%;
+    }
+    .logo-container img {
+        width: 70px;
+    }
+    .text-container h2 {
+        font-size: 1.2em;
+    }
+    .input-group label {
+        font-size: 0.8em;
+    }
+    .already-account {
+        font-size: 0.8em;
+    }
+    .remember-container div label, .remember-container div a  {
+        font-size: 0.8em;
+    }
+    .signup-form {
+        gap: 12px;
+    }
+    .btn-signup {
+        width: 100%;
+        padding: 10px;
+    }
+ }
+
+/* ── Mobile Grande (361px – 599px) ── */
+@media screen and (min-width: 361px) and (max-width: 599px) {
+    .image-sub-container, .image-container {
+        display: none;
+    }
+    .form-container{
+        width: 100%;
+    }
+    .form-sub-container{
+        width: 74%;
+    }
+    .logo-container img {
+        width: 100px;
+    }
+    .text-container h2 {
+        font-size: 2em;
+    }
+    .input-group label {
+        font-size: 0.8em;
+    }
+    .already-account {
+        font-size: 0.8em;
+    }
+    .remember-container div label, .remember-container div a  {
+        font-size: 0.8em;
+    }
+    .signup-form {
+        gap: 18px;
+    }
+    .btn-signup {
+        width: 100%;
+        padding: 15px;
+    }
+ }
+
+/* ── Tablet Portrait (600px – 767px) ── */
+@media screen and (min-width: 600px) and (max-width: 767px) { 
+    .image-sub-container, .image-container {
+        display: none;
+    }
+    .form-container{
+        width: 100%;
+    }
+    .form-sub-container{
+        width: 74%;
+    }
+    .logo-container img {
+        width: 100px;
+    }
+    .text-container h2 {
+        font-size: 2em;
+    }
+    .input-group label {
+        font-size: 1.2em;
+    }
+    .already-account {
+        font-size: 1.2em;
+    }
+    .remember-container div label, .remember-container div a  {
+        font-size: 1.2em;
+    }
+    .signup-form {
+        gap: 18px;
+    }
+    .btn-signup {
+        width: 100%;
+        padding: 15px;
+    }
+ }
+
+/* ── Tablet Landscape (768px – 1023px) ── */
+@media screen and (min-width: 768px) and (max-width: 1023px) { 
+    .form-container{
+        width: 60%;
+    }
+    .form-sub-container{
+        width: 70%;
+    }
+    .logo-container img {
+        width: 100px;
+    }
+    .text-container h2 {
+        font-size: 2em;
+    }
+    .input-group label {
+        font-size: 1em;
+    }
+    .already-account {
+        font-size: 1em;
+    }
+    .remember-container div label, .remember-container div a  {
+        font-size: 1em;
+    }
+    .signup-form {
+        gap: 18px;
+    }
+    .btn-signup {
+        width: 100%;
+        padding: 15px;
+    }
+    .image-sub-container {
+        background-position: center;
+    }
+ }
+
+/* ── HD (1024px – 1365px) ── */
+@media screen and (min-width: 1024px) and (max-width: 1365px) { 
+    .form-container{
+        width: 60%;
+    }
+    .form-sub-container{
+        width: 74%;
+    }
+    .logo-container img {
+        width: 100px;
+    }
+    .text-container h2 {
+        font-size: 2em;
+    }
+    .input-group label {
+        font-size: 0.9em;
+    }
+    .already-account {
+        font-size: 1em;
+    }
+    .remember-container div label, .remember-container div a  {
+        font-size: 1em;
+    }
+    .signup-form {
+        gap: 18px;
+    }
+    .btn-signup {
+        width: 100%;
+        padding: 15px;
+    }
+    .image-sub-container {
+        background-position: center;
+    }
+ }

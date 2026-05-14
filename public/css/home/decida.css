@@ -1,0 +1,259 @@
+
+.section-decida {
+    width: 100%;
+    background-color: #dcd8e6;
+    padding: 100px 0;
+    display: flex;
+    align-items: flex-end;
+}
+.logoWhite{
+    width: 100px;
+}
+.container-decida {
+    width: 85%;
+    background-color: #dcd8e6;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+/* ===== TOPO ===== */
+
+.top-decida {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-decida {
+    width: 50%;
+}
+
+.image-decida img {
+    width: 100%;
+}
+
+.content-decida {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.small-title {
+    font-size: 14px;
+    color: #777;
+}
+
+.content-decida h2 {
+    font-size: 68px;
+    font-weight: 400;
+}
+
+.content-decida p {
+    font-size: 20px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.link-orcamento {
+    color: #3700FF;
+    text-decoration: none;
+    font-size: 23px;
+    margin-top: 10px;
+}
+
+
+.bottom-decida {
+    background-color: #cfcad9;
+    padding: 100px 40PX;
+    display: flex;
+    justify-content: space-between;
+}
+
+.step-item {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background-color: #3700FF;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.step-item h3 {
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.step-item p {
+    font-size: 20px;
+    color: #555;
+    line-height: 1.5;
+}
+
+/* ── Mobile Pequeno (≤ 360px) ── */
+@media screen and (max-width: 360px) { 
+    .section-decida{
+        padding: 40px 0;
+    }
+    .top-decida {
+        flex-direction: column;
+    }
+    .image-decida {
+        width: 70vw;
+    }
+    .top-decida .image-decida img{
+        height: 100%;
+        width: 100%;
+    }
+    .top-decida h2 {
+        font-size: 1.5em;
+        width: 100%;
+        text-align: center;
+    }
+    .content-decida{
+        width: 95%;
+    }
+    .content-decida br {
+        display: none;
+    }
+    .content-decida p{
+        font-size: 1em;
+    }
+    .bottom-decida {
+        padding: 0px 30px;
+        flex-direction: column;
+    }
+    .step-item{
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 15px;
+        gap: 10px;
+    }
+    .step-item h3 {
+        font-size: 2em;
+    }
+    .top-decida a {
+        font-size: 1.1em;
+    }
+    .bottom-decida .step-item p {
+        font-size: 1em;
+    }
+}
+
+/* ── Mobile Grande (361px – 599px) ── */
+@media screen and (min-width: 361px) and (max-width: 599px) {
+    .section-decida{
+        padding: 40px 0;
+    }
+    .top-decida {
+        flex-direction: column;
+    }
+    .image-decida {
+        width: 70vw;
+    }
+    .top-decida .image-decida img{
+        height: 100%;
+        width: 100%;
+    }
+    .top-decida h2 {
+        font-size: 1.5em;
+        width: 100%;
+        text-align: center;
+    }
+    .content-decida{
+        width: 95%;
+    }
+    .content-decida br {
+        display: none;
+    }
+    .content-decida p{
+        font-size: 1em;
+    }
+    .bottom-decida {
+        padding: 0px 30px;
+        flex-direction: column;
+    }
+    .step-item{
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 15px;
+        gap: 10px;
+    }
+    .step-item h3 {
+        font-size: 2em;
+    }
+    .top-decida a {
+        font-size: 1.1em;
+    }
+    .bottom-decida .step-item p {
+        font-size: 1em;
+    }
+ }
+
+/* ── Tablet Portrait (600px – 767px) ── */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .section-decida{
+        padding: 40px 0;
+    }
+    .top-decida {
+        flex-direction: column;
+    }
+    .image-decida {
+        width: 70vw;
+    }
+    .top-decida .image-decida img{
+        height: 100%;
+        width: 100%;
+    }
+    .top-decida h2 {
+        font-size: 2em;
+        width: 100%;
+        text-align: center;
+    }
+    .content-decida{
+        width: 95%;
+    }
+    .content-decida br {
+        display: none;
+    }
+    .content-decida p{
+        font-size: 1.2em;
+    }
+    .bottom-decida {
+        padding: 0px 30px;
+        flex-direction: column;
+    }
+    .step-item{
+        width: 100%;
+        padding-top: 30px;
+        padding-bottom: 15px;
+        gap: 10px;
+    }
+    .step-item h3 {
+        font-size: 2em;
+    }
+    .top-decida a {
+        font-size: 1.3em;
+    }
+    .bottom-decida .step-item p {
+        font-size: 1.2em;
+    }
+ }
+
+
+/* ── HD (1024px – 1365px) ── */
+@media screen and (min-width: 1024px) and (max-width: 1365px) { 
+    
+}

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>P – Crud | Calendário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/calendario/style.css">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+</head>
+<body>
+  <aside class="menu-lateral">
+    <div class="perfil-usuario">
+      <div class="foto-perfil">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </div>
+      <div>
+        <span class="nome-usuario">User</span>
+      </div>
+    </div>
+
+    <nav class="navegacao">
+      <a href="../dashboard/index.html" class="nav-item">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="3" width="8" height="8" rx="1"/>
+            <rect x="13" y="3" width="8" height="8" rx="1"/>
+            <rect x="3" y="13" width="8" height="8" rx="1"/>
+            <rect x="13" y="13" width="8" height="8" rx="1"/>
+          </svg>
+        </span>
+        Dashboard
+      </a>
+      <a href="../users-management/index.html" class="nav-item">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="7" r="3.5"/>
+            <path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+            <circle cx="17" cy="8" r="2.5"/>
+            <path d="M15.5 20c.2-1.7 1.4-3.1 3-3.8"/>
+          </svg>
+        </span>
+        Usuários
+      </a>
+      <a href="../hotels/index.html" class="nav-item">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <ellipse cx="12" cy="6" rx="8" ry="3"/>
+            <path d="M4 6v5c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
+            <path d="M4 11v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/>
+          </svg>
+        </span>
+        Hotéis
+      </a>
+      <a href="./index.html" class="nav-item ativo">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </span>
+        Calendário
+      </a>
+    </nav>
+
+    <div class="rodape-menu">
+      <a href="../login/index.html" class="nav-item sair">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </span>
+        Sair
+      </a>
+    </div>
+  </aside>
+  <main class="conteudo">
+    <div class="cabecalho-pagina">
+      <div>
+        <h1 class="titulo-pagina">Calendário de Eventos e <strong>Sazonalidade</strong></h1>
+        <p style="font-size:11.5px;color:var(--text-muted);margin-top:4px;">Selecione o(s) dia(s) e adicione um evento ou marcador</p>
+      </div>
+      <span><img src="../../assets/logo.svg" alt=""></span>
+    </div>
+    <div class="cal-controls">
+      <span class="badge-ano" id="badgeAno">2026</span>
+
+      <div class="legenda-item" id="legenda-container"></div>
+
+      <div class="nav-mes">
+        <button class="nav-mes-btn" onclick="mudarMes(-1)">&#8249;</button>
+        <span class="nome-mes" id="nomeMes">Janeiro</span>
+        <button class="nav-mes-btn" onclick="mudarMes(1)">&#8250;</button>
+      </div>
+    </div>
+    <div class="wrapper-cal">
+        <div id="calendar"></div>
+    </div>
+  </main>
+  <div class="overlay" id="overlay" onclick="fecharModal()"></div>
+  <div class="modal" id="modal">
+    <div class="modal-cabecalho">
+      <div>
+        <div class="modal-titulo" id="modalTitulo">01 de Janeiro de 2026</div>
+        <div class="modal-data-sub" id="modalSub">Nenhum marcador ativo</div>
+      </div>
+      <button class="modal-fechar" onclick="fecharModal()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-corpo">
+      <div>
+        <div class="secao-titulo">Marcador do Período</div>
+        <div id="marcadorExistente" style="display:none;" class="marcador-existente">
+          <div class="marcador-existente-titulo">Marcador Ativo</div>
+          <div class="marcador-info">
+            <div class="marcador-cor-circle" id="marcadorCorCircle"></div>
+            <span class="marcador-nome" id="marcadorNomeLabel"></span>
+            <div class="marcador-acoes">
+              <button class="btn-mini" onclick="editarMarcador()">Editar</button>
+              <button class="btn-mini danger" onclick="removerMarcador()">Remover</button>
+            </div>
+          </div>
+        </div>
+        <div id="marcadorForm">
+          <div class="evento-form" style="gap:12px;">
+            <label class="campo-label">Nome do Marcador
+              <input class="campo-input" type="text" id="marcadorNome" placeholder="ex: Período de Alta"/>
+            </label>
+            <label class="campo-label">Cor
+              <div class="paleta" id="paletaCores"></div>
+            </label>
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="botao botao-escuro" style="font-size:11px;padding:6px 14px;" onclick="salvarMarcador()">Aplicar Marcador</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="secao-titulo">Eventos do Dia</div>
+        <div class="evento-form">
+          <div id="eventosList"></div>
+          <div class="add-evento-row">
+            <input class="campo-input" type="text" id="novoEventoNome" placeholder="Nome do evento…"/>
+            <select class="campo-input" id="novoEventoCor" style="width:90px;">
+              <option value="#6c63ff">Roxo</option>
+              <option value="#4da6ff">Azul</option>
+              <option value="#4caf82">Verde</option>
+              <option value="#f5c842">Amarelo</option>
+              <option value="#ff5e5e">Vermelho</option>
+              <option value="#ff9f43">Laranja</option>
+            </select>
+            <button class="botao botao-escuro" style="white-space:nowrap;font-size:11px;padding:7px 12px;" onclick="adicionarEvento()">+ Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-rodape">
+      <button class="botao botao-claro" onclick="fecharModal()">Fechar</button>
+      <button class="botao botao-escuro" onclick="fecharModal()">Salvar</button>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlayEvento" onclick="fecharModalEvento()"></div>
+  <div class="modal" id="modalEvento">
+    <div class="modal-cabecalho">
+      <h2 class="modal-titulo">Detalhes do Evento</h2>
+      <button class="modal-fechar" onclick="fecharModalEvento()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-corpo">
+      <label class="campo-label">Nome
+        <input class="campo-input" type="text" id="eventoNome"/>
+      </label>
+      <label class="campo-label">Descrição
+        <textarea class="campo-input" id="eventoDescricao" style="resize: vertical; min-height: 80px;"></textarea>
+      </label>
+      <label class="campo-label">Nível de Importância
+        <select class="campo-input" id="eventoNivel">
+          <option value="1">Baixa</option>
+          <option value="2">Média</option>
+          <option value="3">Alta</option>
+          <option value="4">Crítica</option>
+        </select>
+      </label>
+      <label class="campo-label">Data Inicial
+        <input class="campo-input" type="date" id="eventoDataInicial"/>
+      </label>
+      <label class="campo-label">Horário Inicial
+        <input class="campo-input" type="time" id="eventoHorarioInicial"/>
+      </label>
+      <label class="campo-label">Data Final
+        <input class="campo-input" type="date" id="eventoDataFinal"/>
+      </label>
+      <label class="campo-label">Horário Final
+        <input class="campo-input" type="time" id="eventoHorarioFinal"/>
+      </label>
+    </div>
+    <div class="modal-rodape">
+      <button class="botao botao-claro" onclick="fecharModalEvento()">Cancelar</button>
+      <button class="botao botao-escuro" onclick="salvarEvento()">Salvar</button>
+    </div>
+  </div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  let eventoEmEdicao = null;
+
+  const calendarEl = document.getElementById('calendar');
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: 'dayGridMonth',
+    locale: 'pt-br',
+    height: 'auto',
+
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+
+    selectable: true,
+    editable: true,
+
+    dateClick: function(info) {
+      abrirModalEvento(info.dateStr, null);
+    },
+
+    eventClick: function(info) {
+      abrirModalEvento(null, info.event);
+    },
+    events: {
+      url: '/calendario/listar',
+      method: 'GET'
+    },
+    events: async function(fetchInfo, successCallback, failureCallback) {
+  try {
+    const response = await fetch('/calendario/listar');
+    const dados = await response.json();
+
+    console.log('DADOS BRUTOS:', dados);
+
+    const eventosFormatados = dados.map(evt => {
+
+  let start = evt.dataInicial;
+  let end = evt.dataFinal;
+
+  if (evt.dataInicial && !evt.dataInicial.includes('T')) {
+    start = evt.dataInicial + (evt.horarioInicial ? 'T' + evt.horarioInicial : '');
+  }
+
+  if (evt.dataFinal && !evt.dataFinal.includes('T')) {
+    end = evt.dataFinal + (evt.horarioFinal ? 'T' + evt.horarioFinal : '');
+  }
+
+  return {
+    id: evt.idEventosRegistrados,
+    title: evt.titulo,
+    start: start,
+    end: end,
+    color: getNivelCor(evt.nivelImportancia),
+    extendedProps: {
+      descricao: evt.descricao,
+      nivelImportancia: evt.nivelImportancia
+    }
+  };
+});
+
+    console.log('EVENTOS FORMATADOS:', eventosFormatados);
+
+    successCallback(eventosFormatados);
+
+  } catch (error) {
+    console.error('Erro ao carregar eventos:', error);
+    failureCallback(error);
+  }
+}
+
+  });
+
+  calendar.render();
+
+
+  window.abrirModalEvento = function(dataSelecionada = null, event = null) {
+    const modal = document.getElementById('modalEvento');
+    const overlay = document.getElementById('overlayEvento');
+
+    if (event) {
+      eventoEmEdicao = event;
+
+      document.querySelector('#modalEvento .modal-titulo').textContent = 'Editar Evento';
+      document.getElementById('eventoNome').value = event.title || '';
+      document.getElementById('eventoDescricao').value = event.extendedProps?.descricao || '';
+      document.getElementById('eventoNivel').value = event.extendedProps?.nivelImportancia || '1';
+      document.getElementById('eventoDataInicial').value = event.extendedProps?.dataInicial || '';
+      document.getElementById('eventoHorarioInicial').value = event.extendedProps?.horarioInicial || '';
+      document.getElementById('eventoDataFinal').value = event.extendedProps?.dataFinal || '';
+      document.getElementById('eventoHorarioFinal').value = event.extendedProps?.horarioFinal || '';
+
+    } else {
+      eventoEmEdicao = null;
+
+      document.querySelector('#modalEvento .modal-titulo').textContent = 'Novo Evento';
+      document.getElementById('eventoNome').value = '';
+      document.getElementById('eventoDescricao').value = '';
+      document.getElementById('eventoNivel').value = '1';
+      document.getElementById('eventoDataInicial').value = dataSelecionada || '';
+      document.getElementById('eventoHorarioInicial').value = '';
+      document.getElementById('eventoDataFinal').value = dataSelecionada || '';
+      document.getElementById('eventoHorarioFinal').value = '';
+    }
+
+    modal.classList.add('aberto');
+    overlay.classList.add('aberto');
+  };
+
+  window.fecharModalEvento = function() {
+    document.getElementById('modalEvento').classList.remove('aberto');
+    document.getElementById('overlayEvento').classList.remove('aberto');
+    eventoEmEdicao = null;
+  };
+
+
+  window.salvarEvento = async function() {
+
+    const nome = document.getElementById('eventoNome').value.trim();
+    const descricao = document.getElementById('eventoDescricao').value.trim();
+    const nivel = document.getElementById('eventoNivel').value;
+    const dataInicial = document.getElementById('eventoDataInicial').value;
+    const horarioInicial = document.getElementById('eventoHorarioInicial').value;
+    const dataFinal = document.getElementById('eventoDataFinal').value;
+    const horarioFinal = document.getElementById('eventoHorarioFinal').value;
+
+    if (!nome || !dataInicial) {
+      alert('Preencha pelo menos o nome e a data inicial.');
+      return;
+    }
+
+    const dados = {
+      titulo: nome,
+      descricao: descricao,
+      nivelImportancia: nivel,
+      dataInicial: dataInicial,
+      horarioInicial: horarioInicial || '00:00:00',
+      dataFinal: dataFinal || dataInicial,
+      horarioFinal: horarioFinal || '00:00:00',
+      fkEmpresa: sessionStorage.ID_EMPRESA || 1
+    };
+
+    try {
+      if (eventoEmEdicao) {
+        await fetch('/calendario/editar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...dados,
+            idEvento: eventoEmEdicao.id
+          })
+        });
+        alert('Evento atualizado!');
+      } else {
+        await fetch('/calendario/cadastrar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(dados)
+        });
+        alert('Evento criado!');
+      }
+
+      fecharModalEvento();
+
+      calendar.refetchEvents();
+
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao salvar evento');
+    }
+  };
+
+  function getNivelCor(nivel) {
+    switch(parseInt(nivel)) {
+      case 1: return '#4caf82';
+      case 2: return '#f5c842';
+      case 3: return '#ff9f43';
+      case 4: return '#ff5e5e';
+      default: return '#6c63ff';
+    }
+  }
+
+});
+</script>
+</body>
+</html>

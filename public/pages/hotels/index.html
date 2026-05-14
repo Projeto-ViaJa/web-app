@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>P – Crud | Hotéis</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/hotels/style.css" />
+</head>
+<body>
+  <aside class="menu-lateral">
+
+    <div class="perfil-usuario">
+      <div class="foto-perfil">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="8" r="4"/>
+          <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+        </svg>
+      </div>
+      <div>
+        <span class="nome-usuario">User</span>
+      </div>
+    </div>
+
+    <nav class="navegacao">
+      <a href="../dashboard/index.html" class="nav-item">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3"  y="3"  width="8" height="8" rx="1"/>
+            <rect x="13" y="3"  width="8" height="8" rx="1"/>
+            <rect x="3"  y="13" width="8" height="8" rx="1"/>
+            <rect x="13" y="13" width="8" height="8" rx="1"/>
+          </svg>
+        </span>
+        Dashboard
+      </a>
+
+      <a href="../users-management/index.html" class="nav-item">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="9" cy="7" r="3.5"/>
+            <path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6"/>
+            <circle cx="17" cy="8" r="2.5"/>
+            <path d="M15.5 20c.2-1.7 1.4-3.1 3-3.8"/>
+          </svg>
+        </span>
+        Usuários
+      </a>
+
+      <a href="#" class="nav-item ativo">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <ellipse cx="12" cy="6" rx="8" ry="3"/>
+            <path d="M4 6v5c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/>
+            <path d="M4 11v5c0 1.66 3.58 3 8 3s8-1.34 8-3v-5"/>
+          </svg>
+        </span>
+        Hotéis
+      </a>
+
+      <a href="../calendario/index.html" class="nav-item">
+        <span class="icone-nav">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </span>
+        Calendário
+      </a>
+    </nav>
+
+    <div class="rodape-menu">
+      <a href="../login/index.html" class="nav-item sair">
+        <span class="icone-nav">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+            <polyline points="16 17 21 12 16 7"/>
+            <line x1="21" y1="12" x2="9" y2="12"/>
+          </svg>
+        </span>
+        Sair
+      </a>
+    </div>
+  </aside>
+  <main class="conteudo">
+    <div class="cabecalho-pagina">
+      <h1 class="titulo-pagina">Gerenciamento de <strong>Hotéis</strong> parceiros</h1>
+      <span class="logo-marca"><img src="../../assets/logo.svg" alt=""></span>
+    </div>
+    <div class="secao-formulario">
+      <div class="grade-campos">
+        <label class="campo-label">CNPJ
+          <input class="campo-input" type="text" id="fCnpj" placeholder=""/>
+        </label>
+        <label class="campo-label">Nome Fantasia
+          <input class="campo-input" type="text" id="fNomeFantasia" placeholder=""/>
+        </label>
+        <label class="campo-label">Tipo de Hospedagem
+          <input class="campo-input" type="text" id="fTipoHospedagem" placeholder=""/>
+        </label>
+      </div>
+      <div class="grade-campos-2">
+        <label class="campo-label">Nome Responsável
+          <input class="campo-input" type="text" id="fNomeResponsavel" placeholder=""/>
+        </label>
+        <label class="campo-label">Telefone de Contato
+          <input class="campo-input" type="text" id="fTelContato" placeholder=""/>
+        </label>
+        <label class="campo-label">Email
+          <input class="campo-input" type="email" id="fEmail" placeholder=""/>
+        </label>
+        <label class="campo-label">Filial ou Matriz
+          <input class="campo-input" type="text" id="fFilialOuMatriz" placeholder=""/>
+        </label>
+      </div>
+      <div class="grade-campos-3">
+        <label class="campo-label">UF
+          <input class="campo-input" type="text" id="fUf" placeholder=""/>
+        </label>
+        <label class="campo-label">Município
+          <input class="campo-input" type="text" id="fMunicipio" placeholder=""/>
+        </label>
+        <label class="campo-label">Rua
+          <input class="campo-input" type="text" id="fRua" placeholder=""/>
+        </label>
+        <label class="campo-label">Bairro
+          <input class="campo-input" type="text" id="fBairro" placeholder=""/>
+        </label>
+        <label class="campo-label">CEP
+          <input class="campo-input" type="text" id="fCep" placeholder=""/>
+        </label>
+        <div class="grupo-botoes-form">
+          <button class="botao botao-escuro" onclick="adicionarOuSalvar()">Adicionar</button>
+          <button class="botao botao-claro"  onclick="editarSelecionado()">Editar Dados</button>
+          <button class="botao botao-claro" onclick="removerSelecionado()">Remover</button>
+        </div>
+      </div>
+    </div>
+    <div class="secao-busca">
+      <div class="titulo-busca">Pesquisar Hotéis</div>
+      <div class="barra-busca">
+        <div class="campo-busca-wrap">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input class="campo-busca" type="text" placeholder="" id="campoBusca"/>
+        </div>
+        <select class="select-ordenar" id="selectOrdenar">
+          <option value="">Ordenar</option>
+          <option value="nome">Nome Fantasia</option>
+          <option value="municipio">Município</option>
+          <option value="tipo">Tipo</option>
+        </select>
+        <button class="botao botao-escuro" onclick="filtrarTabela()">Filtrar</button>
+        <button class="botao botao-claro"  onclick="limparFiltro()">Limpar Filtros</button>
+      </div>
+    </div>
+    <div class="wrapper-tabela">
+      <table class="tabela-dados">
+        <thead>
+          <tr>
+            <th>Nome Fantasia</th>
+            <th>CNPJ</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Município</th>
+            <th>UF</th>
+            <th>Tipo</th>
+            <th class="th-acoes">Ações</th>
+          </tr>
+        </thead>
+        <tbody id="linhasHoteis">
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <div class="overlay" id="overlay" onclick="fecharModal()"></div>
+  <div class="modal" id="modal">
+    <div class="modal-cabecalho">
+      <h2 class="modal-titulo">Editar Hospedagem</h2>
+      <button class="modal-fechar" onclick="fecharModal()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+    <div class="modal-corpo">
+      <div class="modal-grade">
+        <label class="campo-label">CNPJ
+          <input class="campo-input" type="text" id="editCnpj"/>
+        </label>
+        <label class="campo-label">Nome Fantasia
+          <input class="campo-input" type="text" id="editNomeFantasia"/>
+        </label>
+        <label class="campo-label">Tipo de Hospedagem
+          <input class="campo-input" type="text" id="editTipoHospedagem"/>
+        </label>
+        <label class="campo-label">Nome Responsável
+          <input class="campo-input" type="text" id="editNomeResponsavel"/>
+        </label>
+        <label class="campo-label">Telefone de Contato
+          <input class="campo-input" type="text" id="editTelContato"/>
+        </label>
+        <label class="campo-label">Email
+          <input class="campo-input" type="email" id="editEmail"/>
+        </label>
+        <label class="campo-label">Filial ou Matriz
+          <input class="campo-input" type="text" id="editFilialOuMatriz"/>
+        </label>
+        <label class="campo-label">UF
+          <input class="campo-input" type="text" id="editUf"/>
+        </label>
+        <label class="campo-label">Município
+          <input class="campo-input" type="text" id="editMunicipio"/>
+        </label>
+        <label class="campo-label">Rua
+          <input class="campo-input" type="text" id="editRua"/>
+        </label>
+        <label class="campo-label">Bairro
+          <input class="campo-input" type="text" id="editBairro"/>
+        </label>
+        <label class="campo-label">CEP
+          <input class="campo-input" type="text" id="editCep"/>
+        </label>
+      </div>
+    </div>
+    <div class="modal-rodape">
+      <button class="botao botao-claro"  onclick="fecharModal()">Cancelar</button>
+      <button class="botao botao-escuro" onclick="salvarEdicao()">Salvar</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    let hoteis = [];
+    let selecionadoId = null;
+    let editandoId = null;
+    let listaFiltrada = [];
+
+    async function fetchHoteis() {
+      try {
+        const response = await fetch('/hoteis/listar');
+        if (!response.ok) throw new Error('Erro ao buscar hotéis');
+        hoteis = await response.json();
+        listaFiltrada = [...hoteis];
+        renderizar(listaFiltrada);
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao carregar hotéis.');
+      }
+    }
+
+    async function cadastrarHotel(dados) {
+      try {
+        const response = await fetch('/hoteis/cadastrar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            cnpjServer: dados.cnpj,
+            nomeFantasiaServer: dados.nomeFantasia,
+            tipoHospedagemServer: dados.tipoHospedagem,
+            nomeResponsavelServer: dados.nomeResponsavel,
+            telContatoServer: dados.telContato,
+            emailServer: dados.email,
+            filialOuMatrizServer: dados.filialOuMatriz,
+            ufServer: dados.uf,
+            municipioServer: dados.municipio,
+            ruaServer: dados.rua,
+            bairroServer: dados.bairro,
+            cepServer: dados.cep
+          })
+        });
+        if (!response.ok) throw new Error('Erro ao cadastrar');
+        await fetchHoteis();
+        mostrarToast('Hospedagem cadastrada com sucesso!');
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao cadastrar hospedagem.');
+      }
+    }
+
+    async function editarHotel(id, dados) {
+      try {
+        const response = await fetch('/hoteis/editar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            idServer: id,
+            cnpjServer: dados.cnpj,
+            nomeFantasiaServer: dados.nomeFantasia,
+            tipoHospedagemServer: dados.tipoHospedagem,
+            nomeResponsavelServer: dados.nomeResponsavel,
+            telContatoServer: dados.telContato,
+            emailServer: dados.email,
+            filialOuMatrizServer: dados.filialOuMatriz,
+            ufServer: dados.uf,
+            municipioServer: dados.municipio,
+            ruaServer: dados.rua,
+            bairroServer: dados.bairro,
+            cepServer: dados.cep
+          })
+        });
+        if (!response.ok) throw new Error('Erro ao editar');
+        await fetchHoteis();
+        mostrarToast('Hospedagem editada com sucesso!');
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao editar hospedagem.');
+      }
+    }
+
+    async function excluirHotel(id) {
+      try {
+        const response = await fetch(`/hoteis/excluir/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Erro ao excluir');
+        await fetchHoteis();
+        mostrarToast('Hotel excluído com sucesso!');
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao excluir hotel.');
+      }
+    }
+
+   function renderizar(lista) {
+      const tbody = document.getElementById('linhasHoteis');
+      tbody.innerHTML = '';
+
+      if (lista.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--cor-texto-fraco);padding:32px">Nenhuma hospedagem encontrada.</td></tr>`;
+        return;
+      }
+
+      lista.forEach(h => {
+        const tr = document.createElement('tr');
+        if (selecionadoId === h.idhospedagemParceiros) tr.classList.add('linha-selecionada');
+        tr.style.cursor = 'pointer';
+        tr.addEventListener('click', () => selecionarLinha(h.idhospedagemParceiros, tr));
+
+        tr.innerHTML = `
+          <td>${h.nomeFantasia}</td>
+          <td>${h.cnpj || ''}</td>
+          <td>${h.email}</td>
+          <td>${h.telContato}</td>
+          <td>${h.municipio}</td>
+          <td>${h.uf}</td>
+          <td>${h.tipoHospedagem || ''}</td>
+          <td class="td-acoes">
+            <button class="botao-acao editar"  onclick="event.stopPropagation(); abrirModal(${h.idhospedagemParceiros})">Editar</button>
+            <button class="botao-acao remover" onclick="event.stopPropagation(); excluirHotel(${h.idhospedagemParceiros})">Remover</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+   fetchHoteis();
+
+   function selecionarLinha(id, tr) {
+      selecionadoId = (selecionadoId === id) ? null : id;
+      renderizar(obterListaAtual());
+    }
+
+   function obterListaAtual() { return listaFiltrada; }
+
+    function filtrarTabela() {
+      const busca   = document.getElementById('campoBusca').value.toLowerCase();
+      const ordenar = document.getElementById('selectOrdenar').value;
+
+      listaFiltrada = hoteis.filter(h =>
+        Object.values(h).some(v => String(v).toLowerCase().includes(busca))
+      );
+
+      if (ordenar === 'nome') {
+        listaFiltrada.sort((a, b) => String(a.nomeFantasia).localeCompare(String(b.nomeFantasia)));
+      } else if (ordenar === 'municipio') {
+        listaFiltrada.sort((a, b) => String(a.municipio).localeCompare(String(b.municipio)));
+      } else if (ordenar === 'tipo') {
+        listaFiltrada.sort((a, b) => String(a.tipoHospedagem).localeCompare(String(b.tipoHospedagem)));
+      }
+
+      renderizar(listaFiltrada);
+    }
+
+    function limparFiltro() {
+      document.getElementById('campoBusca').value = '';
+      document.getElementById('selectOrdenar').value = '';
+      listaFiltrada = [...hoteis];
+      renderizar(listaFiltrada);
+    }
+
+    document.getElementById('campoBusca').addEventListener('keyup', e => {
+      if (e.key === 'Enter') filtrarTabela();
+    });
+
+    function lerFormulario() {
+      return {
+        cnpj:           document.getElementById('fCnpj').value.trim(),
+        nomeFantasia:   document.getElementById('fNomeFantasia').value.trim(),
+        tipoHospedagem: document.getElementById('fTipoHospedagem').value.trim(),
+        nomeResponsavel: document.getElementById('fNomeResponsavel').value.trim(),
+        telContato:     document.getElementById('fTelContato').value.trim(),
+        email:          document.getElementById('fEmail').value.trim(),
+        filialOuMatriz: document.getElementById('fFilialOuMatriz').value.trim(),
+        uf:             document.getElementById('fUf').value.trim(),
+        municipio:      document.getElementById('fMunicipio').value.trim(),
+        rua:            document.getElementById('fRua').value.trim(),
+        bairro:         document.getElementById('fBairro').value.trim(),
+        cep:            document.getElementById('fCep').value.trim()
+      };
+    }
+
+    function limparFormulario() {
+      ['fCnpj','fNomeFantasia','fTipoHospedagem','fNomeResponsavel','fTelContato','fEmail','fFilialOuMatriz','fUf','fMunicipio','fRua','fBairro','fCep'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+    }
+
+    function adicionarOuSalvar() {
+      const dados = lerFormulario();
+      if (!dados.cnpj || !dados.nomeFantasia || !dados.tipoHospedagem || !dados.nomeResponsavel || !dados.telContato || !dados.email || !dados.filialOuMatriz || !dados.uf || !dados.municipio || !dados.rua || !dados.bairro || !dados.cep) {
+        mostrarToast('Preencha todos os campos obrigatórios.');
+        return;
+      }
+      cadastrarHotel(dados);
+      limparFormulario();
+    }
+    function editarSelecionado() {
+      if (!selecionadoId) { mostrarToast('Selecione um hotel na tabela primeiro.'); return; }
+      abrirModal(selecionadoId);
+    }
+
+    function removerSelecionado() {
+      if (!selecionadoId) { mostrarToast('Selecione um hotel na tabela primeiro.'); return; }
+      excluirHotel(selecionadoId);
+    }
+
+    function abrirModal(id) {
+      const h = hoteis.find(x => x.idhospedagemParceiros === id);
+      if (!h) return;
+      editandoId = id;
+      document.getElementById('editCnpj').value          = h.cnpj || '';
+      document.getElementById('editNomeFantasia').value   = h.nomeFantasia || '';
+      document.getElementById('editTipoHospedagem').value = h.tipoHospedagem || '';
+      document.getElementById('editNomeResponsavel').value = h.nomeResponsavel || '';
+      document.getElementById('editTelContato').value     = h.telContato || '';
+      document.getElementById('editEmail').value         = h.email || '';
+      document.getElementById('editFilialOuMatriz').value = h.filialOuMatriz || '';
+      document.getElementById('editUf').value            = h.uf || '';
+      document.getElementById('editMunicipio').value     = h.municipio || '';
+      document.getElementById('editRua').value           = h.rua || '';
+      document.getElementById('editBairro').value        = h.bairro || '';
+      document.getElementById('editCep').value           = h.cep || '';
+      document.getElementById('modal').classList.add('aberto');
+      document.getElementById('overlay').classList.add('aberto');
+    }
+
+    function fecharModal() {
+      document.getElementById('modal').classList.remove('aberto');
+      document.getElementById('overlay').classList.remove('aberto');
+      editandoId = null;
+    }
+
+    function salvarEdicao() {
+      const dados = {
+        cnpj:           document.getElementById('editCnpj').value.trim(),
+        nomeFantasia:   document.getElementById('editNomeFantasia').value.trim(),
+        tipoHospedagem: document.getElementById('editTipoHospedagem').value.trim(),
+        nomeResponsavel: document.getElementById('editNomeResponsavel').value.trim(),
+        telContato:     document.getElementById('editTelContato').value.trim(),
+        email:          document.getElementById('editEmail').value.trim(),
+        filialOuMatriz: document.getElementById('editFilialOuMatriz').value.trim(),
+        uf:             document.getElementById('editUf').value.trim(),
+        municipio:      document.getElementById('editMunicipio').value.trim(),
+        rua:            document.getElementById('editRua').value.trim(),
+        bairro:         document.getElementById('editBairro').value.trim(),
+        cep:            document.getElementById('editCep').value.trim()
+      };
+      if (!dados.cnpj || !dados.nomeFantasia || !dados.tipoHospedagem || !dados.nomeResponsavel || !dados.telContato || !dados.email || !dados.filialOuMatriz || !dados.uf || !dados.municipio || !dados.rua || !dados.bairro || !dados.cep) {
+        mostrarToast('Preencha todos os campos obrigatórios.');
+        return;
+      }
+      editarHotel(editandoId, dados);
+      fecharModal();
+    }
+
+    function mostrarToast(mensagem) {
+      const toast = document.getElementById('toast');
+      toast.textContent = mensagem;
+      toast.classList.add('visivel');
+      setTimeout(() => toast.classList.remove('visivel'), 3000);
+    }
+  </script>
+
+</body>
+</html>

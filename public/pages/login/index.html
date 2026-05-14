@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaJá - Entrar</title>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <link rel="stylesheet" href="../../css/login/style.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="form-container">
+            <div class="logo-container">
+                <a href="../../index.html"><img src="../../assets/logo.svg" alt=""></a>
+            </div>
+            <div class="form-sub-container">
+                <div class="text-container">
+                    <h2>Bem vindo!</h2>
+                    <p>Entre com suas credenciais para continuar.</p>
+                </div>
+                <form class="signup-form">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="in_email" name="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Senha</label>
+                        <input type="password" id="in_password" name="password" required>
+                    </div>
+                    <div class="remember-container">
+                        <div>
+                            <input type="checkbox" id="in_remember" name="remember">
+                            <label for="in_remember">Lembrar de mim</label>
+                        </div>
+                        <div>
+                            <a href="">Esqueceu sua senha?</a>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-signup" onclick="entrar()">Entrar</button>
+                    <p class="error-message" style="display: none; justify-content: center; color: red;">Email ou senha inválidos.</p>
+                    <p class="already-account">Ainda não possui uma conta? <a href="../register/index.html">Cadastre-se agora.</a></p>
+                </form>
+            </div>
+            <div class="footer">
+                <span>Copyright 2026 ViaJá.</span>
+            </div>
+        </div>
+        <div class="image-container">
+            <div class="image-sub-container">
+                <a class="inicio-link" href="../../index.html">Início</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="../../scripts/autenticar/autenticar.js"></script>

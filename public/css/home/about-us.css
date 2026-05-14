@@ -1,0 +1,282 @@
+.section-dados {
+    width: 100%;
+    background-color: #f3f3f3;
+    padding: 100px 0;
+}
+
+.container-dados {
+    width: 85%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.top-dados {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box-icon {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+}
+
+.bg-rotated {
+    width: 300px;
+    height: 300px;
+    background-color: #e7e3f3;
+    transform: rotate(-20deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bg-rotated img {
+    width: 80px;
+    transform: rotate(20deg);
+}
+
+.content-dados {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.content-dados h2 {
+    font-size: 68px;
+    font-weight: 400;
+    color: #000;
+}
+
+.line {
+    width: 60px;
+    height: 3px;
+    background-color: #3700FF;
+}
+
+.content-dados p {
+    font-size: 23px;
+    color: #444;
+    line-height: 1.6;
+}
+
+.bottom-dados {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.card-dado {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+}
+
+.card-dado img {
+    width: 80px;
+}
+
+.card-dado h3 {
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.card-dado p {
+    font-size: 15px;
+    color: #555;
+    max-width: 250px;
+}
+
+
+/* ── Mobile Pequeno (≤ 360px) ── */
+@media screen and (max-width: 360px) { 
+    .section-dados {
+        padding: 30px 0;
+        width: 100vw;
+    }
+    .section-dados .content-dados  h2{
+        font-size: 1em;
+    }
+    .bg-rotated {
+        width: 100px;
+        height: 30vh;
+        transform: rotate(0);
+    }
+    .bg-rotated img {
+        height: 40px;
+    }
+    .content-dados p {
+        font-size: 0.8em;
+    }
+    .content-dados {
+        gap: 5px;
+    }
+    .top-dados {
+        width: 100%;
+    }
+    .bottom-dados {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .bottom-dados img {
+        width: 100px;
+    }
+    .card-dado {
+        width: 90%;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    .card-dado p {
+        font-size: 1em;
+    }
+}
+
+/* ── Mobile Grande (361px – 599px) ── */
+@media screen and (min-width: 361px) and (max-width: 599px) { 
+    .section-dados {
+        padding: 30px 0;
+        width: 100vw;
+    }
+    .section-dados .content-dados  h2{
+        font-size: 1.5em;
+    }
+    .bg-rotated {
+        width: 100px;
+        height: 30vh;
+        transform: rotate(0);
+    }
+    .bg-rotated img {
+        height: 40px;
+    }
+    .content-dados p {
+        font-size: 1em;
+    }
+    .content-dados {
+        gap: 5px;
+    }
+    .top-dados {
+        width: 100%;
+    }
+    .bottom-dados {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .bottom-dados img {
+        width: 100px;
+    }
+    .card-dado {
+        width: 90%;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    .card-dado p {
+        font-size: 1em;
+    }
+}
+
+/* ── Tablet Portrait (600px – 767px) ── */
+@media screen and (min-width: 600px) and (max-width: 767px) {
+    .section-dados {
+        padding: 30px 0;
+        width: 100vw;
+    }
+    .section-dados .content-dados  h2{
+        font-size: 2em;
+    }
+    .bg-rotated {
+        width: 100px;
+        height: 30vh;
+        transform: rotate(0);
+    }
+    .bg-rotated img {
+        height: 40px;
+    }
+    .content-dados p {
+        font-size: 1.4em;
+    }
+    .content-dados {
+        gap: 5px;
+    }
+    .top-dados {
+        width: 92%;
+    }
+    .bottom-dados {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .bottom-dados img {
+        width: 100px;
+    }
+    .card-dado {
+        width: 90%;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    .card-dado p {
+        font-size: 1.3em;
+        max-width: 400px;
+    }
+ }
+
+
+/* ── HD (1024px – 1365px) ── */
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+    .container-dados {
+        width: 100%;
+    }
+    .section-dados {
+        padding: 30px 0;
+        width: 100vw;
+    }
+    .section-dados .content-dados h2{
+        font-size: 2em;
+        max-width: 1000px;
+    }
+    .bg-rotated {
+        width: 180px;
+        height: 30vh;
+        transform: rotate(0);
+    }
+    .bg-rotated img {
+        height: 40px;
+    }
+    .content-dados p {
+        font-size: 1em;
+    }
+    .content-dados {
+        gap: 5px;
+        width: 60%;
+    }
+    .content-dados br {
+        display: none;
+    }
+    .top-dados {
+        width: 92%;
+    }
+    .bottom-dados {
+        flex-direction: column;
+        align-items: center;
+        gap: 40px;
+    }
+    .bottom-dados img {
+        width: 100px;
+    }
+    .card-dado {
+        width: 90%;
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+    .card-dado p {
+        font-size: 1.3em;
+        max-width: 400px;
+    }
+ }

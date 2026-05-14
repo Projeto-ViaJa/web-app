@@ -1,0 +1,208 @@
+.home-container{
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 100px);
+    background-color: #F3F3F3;
+}
+.banner-home{
+    background-color: black;
+    width: 100%;
+    height: 82%;
+    padding-left: 100px;
+    display: flex;
+    align-items: center;
+    background-image: url(../../assets/banner.png);
+    background-position: center;
+    background-size: cover;
+
+}
+.btn-solicitar-orcamento{
+    width: 35%;
+    height: 60px;
+    border: none;
+    border-radius: 30px;
+    background-color: #3700FF;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 20px;
+}
+.content-banner{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 50%;
+    height: 50%;
+    color: white;
+    font-size: 25px;
+}
+.content-banner h1{
+    font-size: 70px;
+    font-weight: 300;
+}
+.content-banner p{
+    font-size: 22px;
+    font-weight: 300;
+
+}
+
+/* ── Mobile Pequeno (≤ 360px) ── */
+@media screen and (max-width: 360px) { 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .home-container {
+        height: 50vh;
+    }
+
+    .banner-home {
+        height: 100%;
+        width: 90%;
+        padding-left: 10%;
+        align-items: center;
+        justify-content: center;
+    }
+    .content-banner {
+        width: 100vw;
+    }
+    .content-banner h1{
+        font-size: 1em;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .banner-home p {
+        height: 30vh;
+        width: 75%;
+        font-size: 0.6em;
+        font-weight: 400;
+    }
+
+    .banner-home .btn-solicitar-orcamento {
+        margin-top: 25px;
+        width: 70%;
+        font-size: 0.6em;
+        padding: 10px;
+    }
+ }
+
+ /* ── Mobile Grande (361px – 599px) ── */
+@media screen and (min-width: 361px) and (max-width: 599px) { 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .home-container {
+        height: 50vh;
+    }
+
+    .banner-home {
+        height: 100%;
+        width: 90%;
+        padding-left: 10%;
+        align-items: center;
+        justify-content: center;
+    }
+    .content-banner {
+        width: 100vw;
+    }
+    .content-banner h1{
+        font-size: 1.4em;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .banner-home p {
+        height: 30vh;
+        width: 75%;
+        font-size: 0.7em;
+        font-weight: 400;
+    }
+
+    .banner-home .btn-solicitar-orcamento {
+        margin-top: 25px;
+        width: 70%;
+        font-size: 0.6em;
+        padding: 10px;
+    }
+}
+
+/* ── Tablet Portrait (600px – 767px) ── */
+@media screen and (min-width: 600px) and (max-width: 767px) { 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .home-container {
+        height: 50vh;
+    }
+
+    .banner-home {
+        height: 100%;
+        width: 90%;
+        padding-left: 10%;
+        align-items: center;
+        justify-content: center;
+    }
+    .content-banner {
+        width: 100vw;
+    }
+    .content-banner h1{
+        font-size: 1.8em;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .banner-home p {
+        height: 30vh;
+        width: 75%;
+        font-size: 1em;
+        font-weight: 400;
+    }
+
+    .banner-home .btn-solicitar-orcamento {
+        margin-top: 25px;
+        width: 70%;
+        font-size: 0.8em;
+        padding: 14px;
+    }
+}
+
+
+/* ── HD (1024px – 1365px) ── */
+@media screen and (min-width: 1024px) and (max-width: 1365px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .home-container {
+        height: 100vh;
+    }
+
+    .banner-home {
+        height: 100%;
+        width: 90%;
+        padding-left: 10%;
+        align-items: center;
+        justify-content: center;
+    }
+    .content-banner {
+        width: 100vw;
+    }
+    .content-banner h1{
+        font-size: 1.2em;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .banner-home p {
+        height: 30vh;
+        width: 75%;
+        font-size: 1em;
+        font-weight: 400;
+    }
+
+    .banner-home .btn-solicitar-orcamento {
+        margin-top: 20px;
+        width: 30%;
+        font-size: 0.8em;
+        padding: 14px;
+    }
+ }
