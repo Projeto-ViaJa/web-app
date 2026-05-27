@@ -15,7 +15,7 @@ function cadastrar(nome, email, senha, fkEmpresa) {
 
     return database.executar(instrucaoSql, [nome, email, senha, fkEmpresa]);
 }
-function editar(id, nome, email_usuario, senha, fkEmpresa, ativo, permissao, nivel) {
+function editar(id, nome, email_usuario, senha, fkEmpresa, ativo, nivel) {
     var instrucaoSql = `
         UPDATE usuario SET
             nome = ?,
@@ -23,11 +23,10 @@ function editar(id, nome, email_usuario, senha, fkEmpresa, ativo, permissao, niv
             senha = ?,
             fk_empresa = ?,
             ativo = ?,
-            permissao = ?,
             nivel = ?
         WHERE id_usuario = ?
     `;
-    return database.executar(instrucaoSql, [nome, email_usuario, senha, fkEmpresa, ativo, permissao, nivel, id])
+    return database.executar(instrucaoSql, [nome, email_usuario, senha, fkEmpresa, ativo, nivel, id])
 }
 
 function excluir(id) {

@@ -442,6 +442,49 @@ body {
   transition: background 0.18s;
   white-space: nowrap;
 }
+.info-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-secondary);
+  font-size: 10px;
+  font-style: normal;
+  color: white;
+  cursor: default;
+  font-weight: 500;
+  user-select: none;
+  background-color: #111111;
+}
+
+.info-icon:hover .tooltip-box,
+.info-icon:focus .tooltip-box {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.tooltip-box {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgb(0, 0, 0);
+  border: 0.5px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  width: 200px;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  pointer-events: none;
+  z-index: 100;
+  white-space: normal;
+}
 .botao-acessar:hover { background: #333; }
 
 .crescimento-positivo { color: var(--cor-positivo); font-weight: 500; }
