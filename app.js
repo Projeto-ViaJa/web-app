@@ -16,7 +16,8 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var empresaRouter = require("./src/routes/empresa");
-var dashboardRouter = require("./src/routes/dashboard");
+var dashboardGeralRouter = require("./src/routes/dashboardGeral");
+var dashboardMicroRouter = require("./src/routes/dashboardMicro");
 var hotelRouter = require("./src/routes/hoteis");
 var calendarioRouter = require("./src/routes/calendario");
 
@@ -29,7 +30,8 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/empresa", empresaRouter);
-app.use("/dashboard", dashboardRouter);
+app.use("/dashboardGeral", dashboardGeralRouter);
+app.use("/dashboardMicro", dashboardMicroRouter);
 app.use("/hoteis", hotelRouter);
 app.use("/calendario", calendarioRouter);
 

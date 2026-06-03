@@ -1,7 +1,9 @@
-var dashboardModel = require("../models/dashboardModel");
+var dashboardMicroModel = require("../models/dashboardMicroModel");
 
-function getDestinoN1(req, res) {
-    dashboardModel.getDestinoN1()
+function getQuantidadePassageirosUltimoMes(req, res) {
+    var localidade = req.params.localidade;
+
+    dashboardMicroModel.getQuantidadePassageirosUltimoMes(localidade)
         .then(function (resultado) {
             if (resultado.length > 0) {
                 return res.status(200).json(resultado[0]);
@@ -18,5 +20,5 @@ function getDestinoN1(req, res) {
 }
 
 module.exports = {
-    getDestinoN1
+    getQuantidadePassageirosUltimoMes
 }

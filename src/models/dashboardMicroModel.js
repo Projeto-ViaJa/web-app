@@ -1,10 +1,11 @@
 var database = require("../database/config");
 
-function getDestinoN1(token) {
+function getQuantidadePassageirosUltimoMes(localidade) {
     console.log("MODEL DASHBOARD ACESSADO!");
 
     var instrucaoSql = `
-        SELECT * FROM vw_total_passageiros WHERE total_passageiros = (SELECT MAX(total_passageiros) FROM vw_total_passageiros);
+        SELECT * FROM vw_volume_de_turistas_mensal_local_especifico
+        WHERE destino_localidade = "${localidade}";
     `;
 
     console.log("Executando a instrução SQL: " + instrucaoSql);
@@ -12,5 +13,5 @@ function getDestinoN1(token) {
 }
 
 module.exports = {
-    getDestinoN1
+    getQuantidadePassageirosUltimoMes
 }
