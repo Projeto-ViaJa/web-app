@@ -15,7 +15,7 @@ function getQuantidadePassageirosUltimoMes() {
     console.log("MODEL DASHBOARD ACESSADO!");
 
     var instrucaoSql = `
-        SELECT * FROM vw_volume_turista_mensal;;
+        SELECT * FROM vw_volume_turista_mensal;
     `;
     console.log("Executando a instrução SQL: " + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -61,11 +61,22 @@ function getLocalidades() {
     return database.executar(instrucaoSql);
 }
 
+function getLocalidade(localidade) {
+    console.log("MODEL DASHBOARD ACESSADO!");
+
+    var instrucaoSql = `
+        SELECT * FROM vw_pesquisar_localidades WHERE destino_localidade LIKE "${localidade}%";
+    `;
+    console.log("Executando a instrução SQL: " + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     getDestinoN1,
     getQuantidadePassageirosUltimoMes,
     getSazonalidadeGeral,
     getDestinoN1Crescimento,
     getTop5EstadosCrescimento,
-    getLocalidades
+    getLocalidades,
+    getLocalidade
 }

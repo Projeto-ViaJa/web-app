@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>W – Ipanema, RJ</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -26,7 +27,7 @@
                     <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
                 </svg>
             </div>
-            <span class="nome-usuario">User</span>
+            <span id="nome_usuario" class="nome-usuario">User</span>
         </div>
 
         <nav class="navegacao">
@@ -107,9 +108,9 @@
                 Dashboard
             </a>
             <span class="breadcrumb-sep">/</span>
-            <span class="breadcrumb-atual">Ipanema, RJ</span>
+            <span id="nome_localidade" class="breadcrumb-atual"></span>
         </div>
-        <h1 class="titulo-localidade">Ipanema, <strong>RJ</strong></h1>
+        <h1 id="nome_localidade_2" class="titulo-localidade">Ipanema, <strong>RJ</strong></h1>
         <div class="linha-resumo">
             <div class="card-resumo">
                 <div class="titulo-resumo">
@@ -122,29 +123,30 @@
                         </span>
                     </span>
                 </div>
-                <div class="valor-resumo">
-                    123.654
-                    <span class="badge-crescimento positivo">+7.6%</span>
+                <div id="kpi_volume_turista_mensal" class="valor-resumo">
+
+                    <!-- <span class="badge-crescimento positivo">+7.6%</span> -->
                 </div>
             </div>
 
             <div class="card-resumo">
                 <div class="titulo-resumo">
-                    Destino #1
+                    Posição no Ranking Geral do País
                     <span class="info-icon" tabindex="0">i
                         <span class="tooltip-box">
-                            <div class="tooltip-title">Destino mais visitado</div>
-                            <div class="tooltip-desc">Cidade com maior volume de chegadas de turistas no período
-                                selecionado.</div>
+                            <div class="tooltip-title">Posição no Ranking Geral do País</div>
+                            <div class="tooltip-desc">Posição da cidade com maior volume de chegadas de turistas.</div>
                         </span>
                     </span>
                 </div>
-                <div class="valor-resumo destino-principal">Salvador, BA</div>
+                <div id="kpi_posicao_ranking_geral" class="valor-resumo destino-principal">
+
+                </div>
             </div>
 
             <div class="card-resumo">
                 <div class="titulo-resumo">
-                    Sazonalidade geral (Índice)
+                    Sazonalidade (Índice)
                     <span class="info-icon" tabindex="0">i
                         <span class="tooltip-box">
                             <div class="tooltip-title">Índice de sazonalidade</div>
@@ -153,15 +155,15 @@
                         </span>
                     </span>
                 </div>
-                <div class="valor-resumo sazonalidade">
-                    3.8X
+                <div id="kpi_sazonalidade" class="valor-resumo sazonalidade">
+
                     <span class="etiqueta-filtro">▾ Abril</span>
                 </div>
             </div>
 
             <div class="card-resumo">
                 <div class="titulo-resumo">
-                    Destino #1 em crescimento
+                    Posição no Ranking de Localidades em Crescimento do País
                     <span class="info-icon" tabindex="0">i
                         <span class="tooltip-box">
                             <div class="tooltip-title">Maior crescimento relativo</div>
@@ -170,7 +172,7 @@
                         </span>
                     </span>
                 </div>
-                <div class="valor-resumo destino-crescimento">Diadema, SP</div>
+                <div id="kpi_posicao_ranking_crescimento" class="valor-resumo destino-crescimento"></div>
             </div>
         </div>
         <div class="linha-central">
@@ -195,8 +197,8 @@
                             </span>
                         </span>
                         <div class="titulo-grafico">Turistas pagantes X<br>Mês</div>
-                        <div class="descricao-grafico">Crescimento percentual de passageiros pagos mês a mês ou ano a
-                            ano.</div>
+                        <div class="descricao-grafico">Quantidade de turistas pagantes ao decorrer dos meses relativo ao
+                            ano vigente.</div>
                         <div class="linha-legenda" id="legendaLinha"></div>
                     </div>
                     <button class="botao-grafico" title="Ver dados">
@@ -228,12 +230,15 @@
                     </span>
                 </div>
                 <div class="area-grafico">
-                    <canvas id="graficoScatter"></canvas>
+                    <!-- <canvas id="graficoScatter"></canvas> -->
+                    <div class="area-grafico heatmap-container">
+                        <div id="heatmapRotas"></div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="secao-busca">
-            <div class="titulo-busca">Pesquisar localidades</div>
+            <div class="titulo-busca">Pesquisar outras localidades</div>
 
             <div class="barra-busca">
                 <div class="campo-busca-wrap">
@@ -241,7 +246,8 @@
                         <circle cx="11" cy="11" r="8" />
                         <line x1="21" y1="21" x2="16.65" y2="16.65" />
                     </svg>
-                    <input class="campo-busca" type="text" placeholder="Buscar..." id="campoBusca" />
+                    <input class="campo-busca" type="text" placeholder="Buscar..." id="campoBusca"
+                        oninput="buscarLocalidade()" />
                 </div>
 
                 <button class="botao botao-claro" onclick="">
@@ -261,14 +267,14 @@
                         <th>Ações</th>
                         <th>Estado </th>
                         <th>Cidade </th>
-                        <th>Crescimento</th>
+                        <th>Performance</th>
                         <th>Quantidade de pessoas</th>
                         <th>Sazonalidade (Índice)</th>
                         <th>% Turistas / Total</th>
                     </tr>
                 </thead>
                 <tbody id="linhasDados">
-                    <tr>
+                    <!-- <tr>
                         <td><button class="botao-acessar">Acessar</button></td>
                         <td>Minas Gerais</td>
                         <td>Belo Horizonte</td>
@@ -276,168 +282,429 @@
                         <td>127.000</td>
                         <td>1.23X</td>
                         <td>11.67%</td>
-                    </tr>
-                    <tr>
-                        <td><button class="botao-acessar">Acessar</button></td>
-                        <td>São Paulo</td>
-                        <td>Ubatuba</td>
-                        <td class="crescimento-negativo">-2%</td>
-                        <td>853.000</td>
-                        <td>1.76X</td>
-                        <td>5.27%</td>
-                    </tr>
-                    <tr>
-                        <td><button class="botao-acessar">Acessar</button></td>
-                        <td>Bahia</td>
-                        <td>Salvador</td>
-                        <td class="crescimento-positivo">+0.81%</td>
-                        <td>445.352</td>
-                        <td>2.5X</td>
-                        <td>6.7%</td>
-                    </tr>
-                    <tr>
-                        <td><button class="botao-acessar">Acessar</button></td>
-                        <td>Sergipe</td>
-                        <td>Aracaju</td>
-                        <td class="crescimento-positivo">+7%</td>
-                        <td>732.723</td>
-                        <td>0.8X</td>
-                        <td>13.72%</td>
-                    </tr>
-                    <tr>
-                        <td><button class="botao-acessar">Acessar</button></td>
-                        <td>Ceará</td>
-                        <td>Jericoacoara</td>
-                        <td class="crescimento-negativo">-2%</td>
-                        <td>814.026</td>
-                        <td>3.0X</td>
-                        <td>8.87%</td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>
 
     </main>
     <script>
+
+
+        // const response = await fetch(`/dashboardMicro/getQuantidadePassageirosNoAno/${localidade}`);
+
+        nome_localidade.innerHTML = `${sessionStorage.DESTINO_LOCALIDADE}, ${sessionStorage.DESTINO_UF}`;
+        nome_localidade_2.innerHTML = `${sessionStorage.DESTINO_LOCALIDADE}, ${sessionStorage.DESTINO_UF}`;
+        nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
         const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
-        const series = [
-            { label: 'BA', cor: '#4a90d9', dados: [18, 22, 26, 24, 30, 36, 48, 60, 56, 52, 50, 54] },
-        ];
+        async function carregarGrafico() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
 
-        new Chart(document.getElementById('graficoFluxo').getContext('2d'), {
-            type: 'line',
-            data: {
-                labels: meses,
-                datasets: series.map(s => ({
-                    label: s.label,
-                    data: s.dados,
-                    borderColor: s.cor,
-                    backgroundColor: s.cor + '18',
-                    borderWidth: s.label === 'SP' ? 2.5 : 1.5,
-                    pointRadius: 0,
-                    pointHoverRadius: 4,
-                    tension: 0.4,
-                    fill: s.label === 'BA',
-                }))
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#111',
-                        titleColor: '#fff',
-                        bodyColor: '#ccc',
-                        padding: 10,
-                        cornerRadius: 8,
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { font: { family: 'Inter', size: 11 }, color: '#aaa' },
-                        border: { display: false },
-                    },
-                    y: {
-                        min: 0, max: 100,
-                        ticks: { stepSize: 10, font: { family: 'Inter', size: 11 }, color: '#aaa' },
-                        grid: { color: '#f0f0ee' },
-                        border: { display: false },
-                    }
-                }
-            }
-        });
-        const legendaEl = document.getElementById('legendaLinha');
-        series.forEach(s => {
-            const item = document.createElement('div');
-            item.className = 'item-legenda';
-            item.innerHTML = `<div class="bolinha-legenda" style="background:${s.cor}"></div>${s.label}`;
-            legendaEl.appendChild(item);
-        });
-        const mesesScatter = ['Jan', 'Fev', 'Março', 'Abril', 'Maio'];
-        const gerarPontos = (n, xMin, xMax, yMin, yMax) =>
-            Array.from({ length: n }, () => ({
-                x: +(Math.random() * (xMax - xMin) + xMin).toFixed(2),
-                y: +(Math.random() * (yMax - yMin) + yMin).toFixed(0),
-            }));
+            const response = await fetch(`/dashboardMicro/getQuantidadePassageirosNoAno/${localidade}`);
+            const json = await response.json();
 
-        new Chart(document.getElementById('graficoScatter').getContext('2d'), {
-            type: 'scatter',
-            data: {
-                datasets: [
-                    {
-                        label: 'Rotas',
-                        data: gerarPontos(30, 0.5, 4.5, 50, 950),
-                        backgroundColor: '#111111cc',
-                        pointRadius: 5,
-                        pointHoverRadius: 7,
-                    },
-                    {
-                        label: 'Destaque',
-                        data: gerarPontos(7, 0.8, 4.2, 100, 850),
-                        backgroundColor: '#4a90d9cc',
-                        pointRadius: 8,
-                        pointHoverRadius: 10,
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#111',
-                        titleColor: '#fff',
-                        bodyColor: '#ccc',
-                        padding: 10,
-                        cornerRadius: 8,
-                    }
+            const labels = json.map(item => meses[item.mes - 1]);
+
+            const series = [{
+                label: json[0]?.destino_localidade || 'Destino',
+                cor: '#4a90d9',
+                dados: json.map(item => Number(item.passageiros_pagos))
+            }];
+
+            new Chart(document.getElementById('graficoFluxo').getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: series.map(s => ({
+                        label: s.label,
+                        data: s.dados,
+                        borderColor: s.cor,
+                        backgroundColor: s.cor + '18',
+                        borderWidth: 1.5,
+                        pointRadius: 0,
+                        pointHoverRadius: 4,
+                        tension: 0.4,
+                        fill: true
+                    }))
                 },
-                scales: {
-                    x: {
-                        min: 0, max: 5,
-                        ticks: {
-                            stepSize: 1,
-                            font: { family: 'Inter', size: 11 },
-                            color: '#aaa',
-                            callback: (v) => mesesScatter[v - 1] ?? '',
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
                         },
-                        grid: { color: '#f0f0ee' },
-                        border: { display: false },
+                        tooltip: {
+                            backgroundColor: '#111',
+                            titleColor: '#fff',
+                            bodyColor: '#ccc',
+                            padding: 10,
+                            cornerRadius: 8,
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' +
+                                        context.parsed.y.toLocaleString('pt-BR');
+                                }
+                            }
+                        }
                     },
-                    y: {
-                        min: 0, max: 1000,
-                        ticks: { stepSize: 250, font: { family: 'Inter', size: 11 }, color: '#aaa' },
-                        grid: { color: '#f0f0ee' },
-                        border: { display: false },
+                    scales: {
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 11
+                                },
+                                color: '#aaa'
+                            },
+                            border: {
+                                display: false
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                font: {
+                                    family: 'Inter',
+                                    size: 11
+                                },
+                                color: '#aaa',
+                                callback: value => value.toLocaleString('pt-BR')
+                            },
+                            grid: {
+                                color: '#f0f0ee'
+                            },
+                            border: {
+                                display: false
+                            }
+                        }
                     }
                 }
+            });
+
+            // legenda
+            const legendaEl = document.getElementById('legendaLinha');
+            legendaEl.innerHTML = '';
+
+            series.forEach(s => {
+                const item = document.createElement('div');
+                item.className = 'item-legenda';
+                item.innerHTML = `
+            <div class="bolinha-legenda" style="background:${s.cor}"></div>
+            ${s.label}
+        `;
+                legendaEl.appendChild(item);
+            });
+        }
+
+        carregarGrafico();
+
+
+
+        async function carregarHeatmap() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
+
+            const response = await fetch(`/dashboardMicro/getFluxoPorRota/${localidade}`);
+            const dados = await response.json();
+
+            const meses = {
+                1: 'Jan',
+                2: 'Fev',
+                3: 'Mar',
+                4: 'Abr',
+                5: 'Mai',
+                6: 'Jun',
+                7: 'Jul',
+                8: 'Ago',
+                9: 'Set',
+                10: 'Out',
+                11: 'Nov',
+                12: 'Dez'
+            };
+
+            // Soma o fluxo total por rota
+            const totalPorRota = {};
+
+            dados.forEach(item => {
+                const fluxo = Number(item.fluxo);
+
+                totalPorRota[item.rota] =
+                    (totalPorRota[item.rota] || 0) + fluxo;
+            });
+
+            // TODAS as rotas ordenadas do maior fluxo para o menor
+            const rotasOrdenadas = Object.entries(totalPorRota)
+                .sort((a, b) => b[1] - a[1])
+                .map(([rota]) => rota);
+
+            // Descobre quais meses existem no retorno
+            const mesesExistentes = [
+                ...new Set(dados.map(item => item.mes))
+            ].sort((a, b) => a - b);
+
+            const series = rotasOrdenadas
+                .map(rota => ({
+                    name: rota,
+                    data: mesesExistentes.map(mes => {
+                        const registro = dados.find(
+                            d => d.rota === rota && d.mes === mes
+                        );
+
+                        return {
+                            x: meses[mes],
+                            y: registro ? Number(registro.fluxo) : 0
+                        };
+                    })
+                }))
+                .reverse();
+
+            // Altura dinâmica
+            const alturaGrafico = Math.max(
+                rotasOrdenadas.length * 35,
+                350
+            );
+
+            const chart = new ApexCharts(
+                document.querySelector('#heatmapRotas'),
+                {
+                    chart: {
+                        type: 'heatmap',
+                        height: alturaGrafico,
+                        toolbar: {
+                            show: false
+                        }
+                    },
+
+                    series,
+
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            fontSize: '13px',
+                            fontWeight: 700,
+                            colors: ['#00000']
+                        },
+                        formatter: function (val) {
+
+                            return val;
+                        }
+                    },
+
+                    colors: ['#4a90d9'],
+
+                    plotOptions: {
+                        heatmap: {
+                            shadeIntensity: 0.8,
+                            radius: 3,
+                            distributed: false,
+                            useFillColorAsStroke: false
+                        }
+                    },
+
+                    stroke: {
+                        width: 1
+                    },
+
+                    xaxis: {
+                        labels: {
+                            style: {
+                                fontSize: '12px'
+                            }
+                        }
+                    },
+
+                    yaxis: {
+                        labels: {
+                            style: {
+                                fontSize: '11px'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        y: {
+                            formatter: value =>
+                                value.toLocaleString('pt-BR') + ' passageiros'
+                        }
+                    }
+                }
+            );
+
+            chart.render();
+        }
+
+        carregarHeatmap();
+
+
+
+        function obterQuantidadePassageirosUltimoMes() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
+
+            fetch(`/dashboardMicro/getQuantidadePassageirosUltimoMes/${localidade}`, {
+                cache: "no-store"
+            })
+                .then(function (response) {
+                    console.log(response)
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+
+                            kpi_volume_turista_mensal.innerHTML = resposta.passageiros_pagos;
+
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function obterPosicaoRankingGeral() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
+
+            fetch(`/dashboardMicro/getPosicaoNoRankingGeral/${localidade}`, { cache: "no-store" })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+
+                            kpi_posicao_ranking_geral.innerHTML = `${resposta.ranking_geral}°`;
+
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function obterIndiceSazonalidade() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
+
+            fetch(`/dashboardMicro/getSazonalidade/${localidade}`, { cache: "no-store" })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+
+                            kpi_sazonalidade.innerHTML = `${resposta.indice_x}X`;
+
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function obterPosicaoRankingCrescimento() {
+            var localidade = sessionStorage.DESTINO_LOCALIDADE;
+
+            fetch(`/dashboardMicro/getPosicaoNoRankingCrescimento/${localidade}`, { cache: "no-store" })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+
+                            kpi_posicao_ranking_crescimento.innerHTML = `${resposta.ranking_crescimento}°`;
+
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        obterQuantidadePassageirosUltimoMes();
+        obterPosicaoRankingGeral();
+        obterIndiceSazonalidade();
+        obterPosicaoRankingCrescimento();
+
+        let tabelaLocalidades = document.getElementById("tabela-dados");
+        let valor_tabela;
+
+        function obterDadosLocalidade() {
+            fetch(`/dashboardGeral/getLocalidades`, { cache: "no-store" })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            valor_tabela = resposta;
+                            montarTabela();
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+        }
+
+        function buscarLocalidade() {
+            var valor_a_buscar = campoBusca.value;
+
+            fetch(`/dashboardGeral/getLocalidade/${valor_a_buscar}`, { cache: "no-store" })
+                .then(function (response) {
+                    if (response.ok) {
+                        response.json().then(function (resposta) {
+                            valor_tabela = resposta;
+                            montarTabela(valor_tabela);
+                        });
+                    } else {
+                        console.error("Nenhum dado encontrado ou erro na API");
+                    }
+                })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                });
+
+            if (valor_a_buscar == '') {
+                obterDadosLocalidade();
             }
-        });
+        }
+
+        function montarTabela() {
+            let tabela = document.getElementById("tabelaDados");
+
+            linhasDados.innerHTML = ``;
+
+            for (let i = 0; i < valor_tabela.length; i++) {
+                let localidade = valor_tabela[i].destino_localidade;
+                let uf = valor_tabela[i].destino_uf;
+                let qtd_passageiros_pagos = valor_tabela[i].passageiros_pagos_ultimo_periodo;
+                let indice_sazonalidade = valor_tabela[i].indice_sazonalidade;
+                let indice_crescimento = valor_tabela[i].indice_crescimento;
+                let percentual_participacao = valor_tabela[i].percentual_participacao;
+
+                linhasDados.innerHTML += `
+            <tr>
+                <td><a onclick="acessarMicro('${localidade}', '${uf}')"><button class="botao-acessar">Acessar</button></a></td>
+                <td>${uf}</td>
+                <td>${localidade}</td>
+                <td>${indice_crescimento}%</td>
+                <td>${qtd_passageiros_pagos}</td>
+                <td>${indice_sazonalidade}X</td>
+                <td>${percentual_participacao}%</td>
+            </tr>`;
+            }
+        }
+
+        obterDadosLocalidade();
+
 
     </script>
 

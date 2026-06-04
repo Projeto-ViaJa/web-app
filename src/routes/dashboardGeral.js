@@ -27,4 +27,8 @@ router.get("/getLocalidades", function (req, res) {
     dashboardGeralController.getLocalidades(req, res);
 });
 
+router.get("/getLocalidade/:localidade", function (req, res) {
+    dashboardGeralController.getLocalidade(req, res);
+});
+
 module.exports = router;
