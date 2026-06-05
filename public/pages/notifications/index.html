@@ -7,8 +7,10 @@
   <title>W – Notificações Slack</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../css/dashboard/style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../../css/notificacao/style.css">
   <link rel="shortcut icon" href="../../assets/favicon.ico" type="image/x-icon">
 </head>
 
@@ -94,7 +96,7 @@
   <main class="conteudo">
     <h1 class="saudacao">Notificações <strong>Slack</strong></h1>
 
-    <!-- Status da conexão -->
+    <!--Status da conexão-->
     <div class="linha-resumo">
       <div class="card-resumo">
         <div class="titulo-resumo">
@@ -102,26 +104,14 @@
           <span class="info-icon" tabindex="0">i
             <span class="tooltip-box">
               <div class="tooltip-title">Conexão com Slack</div>
-              <div class="tooltip-desc">Indica se o webhook do Slack está configurado e ativo para envio de notificações.</div>
+              <div class="tooltip-desc">Indica se o webhook do Slack está configurado e ativo para envio de
+                notificações.</div>
             </span>
           </span>
         </div>
-        <div class="valor-resumo">
-          <span class="badge-crescimento positivo">● Conectado</span>
+        <div class="valor-resumo" id="statusIntegracao">
+          <span class="badge-crescimento negativo">● Desconectado</span>
         </div>
-      </div>
-
-      <div class="card-resumo">
-        <div class="titulo-resumo">
-          Canal ativo
-          <span class="info-icon" tabindex="0">i
-            <span class="tooltip-box">
-              <div class="tooltip-title">Canal do Slack</div>
-              <div class="tooltip-desc">Canal do Slack onde as notificações serão enviadas quando disparadas.</div>
-            </span>
-          </span>
-        </div>
-        <div class="valor-resumo destino-principal">#alertas-turismo</div>
       </div>
 
       <div class="card-resumo">
@@ -134,39 +124,93 @@
             </span>
           </span>
         </div>
-        <div class="valor-resumo">4 <span class="badge-crescimento positivo">de 6</span></div>
-      </div>
-
-      <div class="card-resumo">
-        <div class="titulo-resumo">
-          Último envio
-          <span class="info-icon" tabindex="0">i
-            <span class="tooltip-box">
-              <div class="tooltip-title">Última notificação disparada</div>
-              <div class="tooltip-desc">Horário do envio mais recente ao canal do Slack.</div>
-            </span>
+        <div class="valor-resumo">
+          <span id="qtdAtivas">0</span>
+          <span class="badge-crescimento positivo">
+            de <span id="qtdTotal">0</span>
           </span>
         </div>
-        <div class="valor-resumo destino-principal">Hoje, 09:42</div>
+      </div>
+
+    </div>
+
+    <div class="espacamento-busca">
+      <div class="titulo-busca">Gerenciar notificações</div>
+      <button class="botao botao-escuro" id="btnSalvar" onclick="abrirModalCadastro()">Criar Parametrização</button>
+    </div>
+
+    <div class="overlay" id="overlayCadastro" onclick="fecharModalCadastro()"></div>
+
+    <div class="modal" id="modalCadastro">
+      <div class="modal-cabecalho">
+        <h2 class="modal-titulo">Criar Parametrização</h2>
+
+        <button class="modal-fechar" onclick="fecharModalCadastro()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-corpo">
+        <div class="modal-grade">
+
+          <label class="campo-label">
+            Título da Notificação
+            <input class="campo-input" type="text" id="tituloNotificacao" />
+          </label>
+
+          <label class="campo-label">
+            Canal
+            <input class="campo-input" type="text" id="canal" />
+          </label>
+
+          <label class="campo-label">
+            Descrição
+            <input class="campo-input" type="text" id="descricao" />
+          </label>
+
+          <label class="campo-label">
+            URL Webhook
+            <input class="campo-input" type="url" id="url" />
+          </label>
+
+          <label class="campo-label">
+            Tipos de Log
+            <div style="margin-top: 8px;">
+              <label>
+                <input type="checkbox" class="tipoLog" value="1">
+                ERROR
+              </label>
+
+              <label style="margin-left:15px;">
+                <input type="checkbox" class="tipoLog" value="2">
+                WARNING
+              </label>
+
+              <label style="margin-left:15px;">
+                <input type="checkbox" class="tipoLog" value="3">
+                INFO
+              </label>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      <div class="modal-rodape">
+        <button class="botao botao-claro" onclick="fecharModalCadastro()">
+          Cancelar
+        </button>
+
+        <button class="botao botao-escuro" onclick="salvarCadastro()">
+          Salvar
+        </button>
       </div>
     </div>
 
-    <!-- Configuração de notificações -->
     <div class="secao-busca">
-      <div class="titulo-busca">Gerenciar notificações</div>
-
-      <div class="barra-busca">
-        <div class="campo-busca-wrap">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <input class="campo-busca" type="text" placeholder="Buscar notificação..." id="campoBuscaNotif" />
-        </div>
-        <button class="botao botao-escuro" id="btnSalvar">Salvar alterações</button>
-        <button class="botao botao-claro" id="btnTestar">Testar envio</button>
-      </div>
-
       <table class="tabela-dados">
         <thead>
           <tr>
@@ -174,181 +218,467 @@
             <th>Notificação</th>
             <th>Descrição</th>
             <th>Canal</th>
-            <th>Frequência</th>
-            <th>Último disparo</th>
+            <th>URL</th>
+            <th>Tipos de Log</th>
             <th>Ações</th>
           </tr>
         </thead>
         <tbody id="linhasNotificacoes">
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Pico de turistas</strong></td>
-            <td>Alerta quando o volume mensal superar o limite configurado</td>
-            <td>#alertas-turismo</td>
-            <td>Tempo real</td>
-            <td>Hoje, 09:42</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Relatório semanal</strong></td>
-            <td>Resumo automático dos KPIs da semana anterior</td>
-            <td>#relatorios</td>
-            <td>Toda segunda, 08:00</td>
-            <td>19 mai, 08:00</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Novo destino em alta</strong></td>
-            <td>Notifica quando um destino apresentar crescimento acima de 10%</td>
-            <td>#alertas-turismo</td>
-            <td>Diário</td>
-            <td>19 mai, 14:30</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" checked />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Queda abrupta</strong></td>
-            <td>Alerta quando houver queda superior a 15% em um destino</td>
-            <td>#alertas-turismo</td>
-            <td>Tempo real</td>
-            <td>17 mai, 11:05</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Sazonalidade crítica</strong></td>
-            <td>Avisa quando o índice de sazonalidade ultrapassar 4.0X</td>
-            <td>#alertas-turismo</td>
-            <td>Mensal</td>
-            <td>–</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
-          <tr>
-            <td>
-              <label class="toggle-switch">
-                <input type="checkbox" />
-                <span class="toggle-slider"></span>
-              </label>
-            </td>
-            <td><strong>Relatório mensal</strong></td>
-            <td>Consolidado completo dos indicadores do mês encerrado</td>
-            <td>#relatorios</td>
-            <td>Todo dia 1°, 09:00</td>
-            <td>–</td>
-            <td>
-              <button class="botao-acessar">Editar</button>
-            </td>
-          </tr>
-
         </tbody>
       </table>
     </div>
+    <div class="overlay" id="overlay" onclick="fecharModal()"></div>
 
-    <!-- Configuração do webhook -->
-    <div class="secao-busca">
-      <div class="titulo-busca">Configuração do Webhook</div>
+    <div class="modal" id="modal">
+      <div class="modal-cabecalho">
+        <h2 class="modal-titulo">Editar Parametrização</h2>
 
-      <div class="card-resumo" style="max-width: 100%; width: 100%; box-sizing: border-box;">
-        <div class="titulo-resumo" style="margin-bottom: 12px;">
-          URL do Webhook
-          <span class="info-icon" tabindex="0">i
-            <span class="tooltip-box">
-              <div class="tooltip-title">Webhook do Slack</div>
-              <div class="tooltip-desc">URL gerada nas configurações do seu workspace no Slack. Necessária para que o sistema envie mensagens ao canal.</div>
-            </span>
-          </span>
+        <button class="modal-fechar" onclick="fecharModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-corpo">
+        <div class="modal-grade">
+
+          <input type="hidden" id="editId" />
+
+          <label class="campo-label">
+            Título da Notificação
+            <input class="campo-input" type="text" id="editTituloNotificacao" />
+          </label>
+
+          <label class="campo-label">
+            Canal
+            <input class="campo-input" type="text" id="editCanal" />
+          </label>
+
+          <label class="campo-label">
+            Descrição
+            <input class="campo-input" type="text" id="editDescricao" />
+          </label>
+
+          <label class="campo-label">
+            URL Webhook
+            <input class="campo-input" type="url" id="editUrl" />
+          </label>
+
+          <label class="campo-label">
+            Ativo
+            <select class="campo-input" id="editAtivo">
+              <option value="1">Sim</option>
+              <option value="0">Não</option>
+            </select>
+          </label>
+
+          <label class="campo-label">
+            Tipos de Log
+
+            <div style="margin-top: 8px;">
+
+              <label>
+                <input type="checkbox" class="editTipoLog" value="1">
+                ERROR
+              </label>
+
+              <label style="margin-left:15px;">
+                <input type="checkbox" class="editTipoLog" value="2">
+                WARNING
+              </label>
+
+              <label style="margin-left:15px;">
+                <input type="checkbox" class="editTipoLog" value="3">
+                INFO
+              </label>
+
+            </div>
+
+          </label>
+
         </div>
-        <div class="barra-busca" style="margin-top: 0;">
-          <div class="campo-busca-wrap" style="flex: 1;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-            </svg>
-            <input class="campo-busca" type="text" placeholder="https://hooks.slack.com/services/..." id="webhookUrl" value="https://hooks.slack.com/services/T00000000/B00000000/XXXX" />
-          </div>
-          <button class="botao botao-escuro">Atualizar</button>
-          <button class="botao botao-claro">Revogar</button>
-        </div>
+      </div>
+
+      <div class="modal-rodape">
+        <button class="botao botao-claro" onclick="fecharModal()">
+          Cancelar
+        </button>
+
+        <button class="botao botao-escuro" onclick="salvarEdicao()">
+          Salvar
+        </button>
       </div>
     </div>
 
+
+    <div class="toast" id="toast"></div>
   </main>
 
   <script>
-    // Busca nas notificações
-    document.getElementById('campoBuscaNotif').addEventListener('input', function () {
-      const termo = this.value.toLowerCase();
-      document.querySelectorAll('#linhasNotificacoes tr').forEach(tr => {
-        tr.style.display = tr.textContent.toLowerCase().includes(termo) ? '' : 'none';
+
+    let parametrizacoes = [];
+    let editandoId = null;
+
+    async function listarParametrizacoes() {
+      try {
+        const response =
+          await fetch('/params/listar');
+
+        if (!response.ok) {
+          throw new Error(
+            'Erro ao buscar parametrizações'
+          );
+        }
+        parametrizacoes =
+          await response.json();
+        renderizar(parametrizacoes);
+        atualizarKPIs();
+      } catch (erro) {
+        console.error(erro);
+        mostrarToast(
+          'Erro ao carregar parametrizações.'
+        );
+      }
+    }
+    
+    async function cadastrarParametrizacao(dados) {
+      try {
+        const response = await fetch(
+          '/params/cadastrar',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              tituloNotificacaoServer:dados.titulo,
+              descricaoServer:dados.descricao,
+              urlServer:dados.url,
+              canalServer:dados.canal,
+              fkUsuarioServer:sessionStorage.ID_USUARIO,
+              fkEmpresaServer:sessionStorage.ID_EMPRESA,
+              tiposLogServer:dados.tiposLog
+            })
+          }
+        );
+        if (!response.ok) {
+          throw new Error();
+        }
+        mostrarToast(
+          'Parametrização cadastrada com sucesso!'
+        );
+        limparFormularioCadastro();
+        fecharModalCadastro();
+        await listarParametrizacoes();
+      } catch (erro) {
+        console.error(erro);
+        mostrarToast(
+          'Erro ao cadastrar parametrização.'
+        );
+      }
+    }
+
+    async function salvarEdicao() {
+      try {
+        const response =
+          await fetch('/params/editar', {
+            method: 'PUT',
+            headers: {
+              'Content-Type':
+                'application/json'
+            },
+            body: JSON.stringify({
+              idServer:editandoId,
+              tituloNotificacaoServer:document.getElementById('editTituloNotificacao').value.trim(),
+              descricaoServer:document.getElementById('editDescricao').value.trim(),
+              canalServer:document.getElementById('editCanal').value.trim(),
+              urlServer:document.getElementById('editUrl').value.trim(),
+              isAtivoServer:document.getElementById('editAtivo').value,
+              tiposLogServer:obterTiposEdicao()
+            })
+          });
+        if (!response.ok) {
+          throw new Error();
+        }
+        fecharModal();
+        await listarParametrizacoes();
+        mostrarToast(
+          'Parametrização atualizada!'
+        );
+      } catch (erro) {
+        console.error(erro);
+        mostrarToast(
+          'Erro ao editar parametrização.'
+        );
+      }
+    }
+
+    async function excluirParametrizacao(id) {
+      try {
+        const response =
+          await fetch(
+            `/params/excluir/${id}`,
+            {
+              method: 'DELETE'
+            }
+          );
+        if (!response.ok) {
+          throw new Error();
+        }
+        await listarParametrizacoes();
+        mostrarToast(
+          'Parametrização excluída com sucesso!'
+        );
+      } catch (erro) {
+        console.error(erro);
+        mostrarToast(
+          'Erro ao excluir parametrização.'
+        );
+      }
+    }
+
+    function renderizar(lista) {
+      const tbody =
+        document.getElementById('linhasNotificacoes');
+      tbody.innerHTML = '';
+      if (lista.length === 0) {
+        tbody.innerHTML = `
+      <tr>
+        <td colspan="7"
+            style="text-align:center;">
+          Nenhuma parametrização encontrada.
+        </td>
+      </tr>
+    `;
+        return;
+      }
+      lista.forEach(p => {
+        tbody.innerHTML += `
+      <tr>
+        <td>
+          ${p.ativo ? 'Ativo' : 'Inativo'}
+        </td>
+        <td>
+          ${p.tituloNotificacao}
+        </td>
+        <td>
+          ${p.descricao}
+        </td>
+        <td>
+          ${p.canal}
+        </td>
+        <td>
+          ${p.url}
+        </td>
+        <td>
+          ${p.tipos}
+        </td>
+        <td class="td-acoes">
+          <button class="botao-acao editar" onclick="abrirModal(${p.id})">Editar</button>
+          <button class="botao-acao remover" onclick="excluirParametrizacao(${p.id})">Remover</button>
+        </td>
+      </tr>
+    `;
       });
-    });
+    }
 
-    // Feedback ao salvar
-    document.getElementById('btnSalvar').addEventListener('click', function () {
-      this.textContent = 'Salvo ✓';
-      this.disabled = true;
-      setTimeout(() => {
-        this.textContent = 'Salvar alterações';
-        this.disabled = false;
-      }, 2000);
-    });
+    function obterTiposCadastro() {
+      let tipos = [];
+      document
+        .querySelectorAll(
+          '.tipoLog:checked'
+        )
+        .forEach(item => {
+          tipos.push(
+            Number(item.value)
+          );
+        });
+      return tipos;
+    }
 
-    // Feedback ao testar
-    document.getElementById('btnTestar').addEventListener('click', function () {
-      this.textContent = 'Enviando...';
-      this.disabled = true;
+    function obterTiposEdicao() {
+      let tipos = [];
+      document
+        .querySelectorAll(
+          '.editTipoLog:checked'
+        )
+        .forEach(item => {
+          tipos.push(
+            Number(item.value)
+          );
+        });
+      return tipos;
+    }
+
+    function abrirModalCadastro() {
+      document.getElementById('modalCadastro').classList.add('aberto');
+      document.getElementById('overlayCadastro').classList.add('aberto');
+    }
+
+    function fecharModalCadastro() {
+      document.getElementById('modalCadastro').classList.remove('aberto');
+      document.getElementById('overlayCadastro').classList.remove('aberto');
+    }
+
+    function limparFormularioCadastro() {
+      document.getElementById('tituloNotificacao').value = '';
+      document.getElementById('descricao').value = '';
+      document.getElementById('canal').value = '';
+      document.getElementById('url').value = '';
+      document.querySelectorAll('.tipoLog').forEach(item => {item.checked = false;});
+    }
+
+    async function salvarCadastro() {
+      const dados = {
+        titulo:document.getElementById('tituloNotificacao').value.trim(),
+        descricao:document.getElementById('descricao').value.trim(),
+        canal:document.getElementById('canal').value.trim(),
+        url:document.getElementById('url').value.trim(),
+        tiposLog:obterTiposCadastro()
+      };
+
+      if (
+        !dados.titulo ||
+        !dados.descricao ||
+        !dados.canal ||
+        !dados.url ||
+        dados.tiposLog.length === 0
+      ) {
+        mostrarToast(
+          'Preencha todos os campos.'
+        );
+        return;
+      }
+      await cadastrarParametrizacao(
+        dados
+      );
+    }
+
+    function abrirModal(id) {
+      const p =
+        parametrizacoes.find(
+          item => item.id == id
+        );
+
+      if (!p) return;
+      editandoId = id;
+      document
+        .getElementById(
+          'editTituloNotificacao'
+        )
+        .value =
+        p.tituloNotificacao;
+
+      document
+        .getElementById(
+          'editDescricao'
+        )
+        .value =
+        p.descricao;
+
+      document
+        .getElementById(
+          'editCanal'
+        )
+        .value =
+        p.canal;
+
+      document
+        .getElementById(
+          'editUrl'
+        )
+        .value =
+        p.url;
+
+      document
+        .getElementById(
+          'editAtivo'
+        )
+        .value =
+        p.ativo ? 1 : 0;
+      document
+        .querySelectorAll(
+          '.editTipoLog'
+        )
+        .forEach(item => {
+          item.checked = false;
+          if (
+            p.tipos &&
+            p.tipos.includes(
+              item.parentElement
+                .textContent
+                .trim()
+            )
+          ) {
+            item.checked = true;
+          }
+        });
+      document
+        .getElementById('modal')
+        .classList.add('aberto');
+      document
+        .getElementById('overlay')
+        .classList.add('aberto');
+    }
+
+    function fecharModal() {
+      document
+        .getElementById('modal')
+        .classList.remove('aberto');
+      document
+        .getElementById('overlay')
+        .classList.remove('aberto');
+      editandoId = null;
+    }
+
+    function mostrarToast(mensagem) {
+      const toast =
+        document.getElementById(
+          'toast'
+        );
+      toast.textContent =
+        mensagem;
+      toast.classList.add(
+        'visivel'
+      );
       setTimeout(() => {
-        this.textContent = 'Enviado ✓';
-        setTimeout(() => {
-          this.textContent = 'Testar envio';
-          this.disabled = false;
-        }, 1500);
-      }, 1200);
-    });
+        toast.classList.remove(
+          'visivel'
+        );
+      }, 3000);
+    }
+
+    window.onload = () => {
+      listarParametrizacoes();
+    };
+
+    function atualizarKPIs() {
+      const total = parametrizacoes.length;
+      const ativas = parametrizacoes.filter(
+        p => Number(p.ativo) === 1
+      ).length;
+      document.getElementById("qtdAtivas").innerText =
+        ativas;
+      document.getElementById("qtdTotal").innerText =
+        total;
+      const statusDiv =
+        document.getElementById("statusIntegracao");
+      if (ativas > 0) {
+        statusDiv.innerHTML = `
+          <span class="badge-crescimento positivo">
+            ● Conectado
+          </span>
+          `;
+      } else {
+        statusDiv.innerHTML = `
+          <span class="badge-crescimento negativo">
+            ● Desconectado
+          </span>
+          `;
+      }
+    }
   </script>
-
 </body>
 </html>
