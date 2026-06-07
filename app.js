@@ -20,6 +20,7 @@ var dashboardGeralRouter = require("./src/routes/dashboardGeral");
 var dashboardMicroRouter = require("./src/routes/dashboardMicro");
 var hotelRouter = require("./src/routes/hoteis");
 var calendarioRouter = require("./src/routes/calendario");
+var paramsRouter = require("./src/routes/params");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -34,6 +35,7 @@ app.use("/dashboardGeral", dashboardGeralRouter);
 app.use("/dashboardMicro", dashboardMicroRouter);
 app.use("/hoteis", hotelRouter);
 app.use("/calendario", calendarioRouter);
+app.use("/params", paramsRouter);
 
 
 app.listen(PORTA_APP, function () {
