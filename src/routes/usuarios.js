@@ -6,6 +6,10 @@ router.post("/cadastrar", function (req, res) {
     usuarioController.cadastrar(req, res);
 })
 
+router.post("/cadastrarComum", function (req, res) {
+    usuarioController.cadastrarComum(req, res);
+})
+
 router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
@@ -20,6 +24,10 @@ router.delete("/excluir/:id", function (req, res){
 
 router.get("/listar", function (req, res){
     usuarioController.listarUsuarios(req, res);
+})
+
+router.get("/listarPorNome/:nome", function (req, res){
+    usuarioController.listarPorNome(req, res);
 })
 
 module.exports = router;

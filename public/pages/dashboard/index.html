@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -109,7 +109,7 @@
                     </span>
                 </div>
                 <div id="kpi_valor_resumo" class="valor-resumo">
-
+                    
                 </div>
             </div>
 
@@ -176,7 +176,8 @@
                             2026
                         </div>
                         <div class="titulo-grafico">Crescimento Turistas pagantes X<br>Mês</div>
-                        <div class="descricao-grafico">Crescimento percentual de passageiros pagos mês a mês no ano atual.</div>
+                        <div class="descricao-grafico">Crescimento percentual de passageiros pagos mês a mês no ano
+                            atual.</div>
                         <div class="linha-legenda" id="legendaLinha"></div>
                         <span class="tooltip-box">
                             <div class="tooltip-title">Maior crescimento relativo</div>
@@ -253,124 +254,13 @@
         nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
         nome_usuario_2.innerHTML = sessionStorage.NOME_USUARIO;
 
-
-        // new Chart(document.getElementById('graficoFluxo').getContext('2d'), {
-        //     type: 'line',
-        //     data: {
-        //         labels: meses,
-        //         datasets: estados.map(e => ({
-        //             label: e.label,
-        //             data: e.dados,
-        //             borderColor: e.cor,
-        //             backgroundColor: e.cor + '18',
-        //             borderWidth: e.label === 'SP' ? 2.5 : 1.5,
-        //             pointRadius: 0,
-        //             pointHoverRadius: 4,
-        //             tension: 0.4,
-        //             fill: e.label === 'BA',
-        //         }))
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         maintainAspectRatio: false,
-        //         interaction: { mode: 'index', intersect: false },
-        //         plugins: {
-        //             legend: { display: false },
-        //             tooltip: {
-        //                 backgroundColor: '#111',
-        //                 titleColor: '#fff',
-        //                 bodyColor: '#ccc',
-        //                 padding: 10,
-        //                 cornerRadius: 8,
-        //             }
-        //         },
-        //         scales: {
-        //             x: {
-        //                 grid: { display: false },
-        //                 ticks: { font: { family: 'Inter', size: 11 }, color: '#aaa' },
-        //                 border: { display: false },
-        //             },
-        //             y: {
-        //                 min: 0, max: 100,
-        //                 ticks: { stepSize: 10, font: { family: 'Inter', size: 11 }, color: '#aaa' },
-        //                 grid: { color: '#f0f0ee' },
-        //                 border: { display: false },
-        //             }
-        //         }
-        //     }
-        // });
-
-        // const legendaEl = document.getElementById('legendaLinha');
-        // estados.forEach(e => {
-        //     const item = document.createElement('div');
-        //     item.className = 'item-legenda';
-        //     item.innerHTML = `<div class="bolinha-legenda" style="background:${e.cor}"></div>${e.label}`;
-        //     legendaEl.appendChild(item);
-        // });
-
-        // const gerarPontos = (n, xMin, xMax, yMin, yMax) =>
-        //     Array.from({ length: n }, () => ({
-        //         x: +(Math.random() * (xMax - xMin) + xMin).toFixed(1),
-        //         y: +(Math.random() * (yMax - yMin) + yMin).toFixed(0),
-        //     }));
-
-        // new Chart(document.getElementById('graficoScatter').getContext('2d'), {
-        //     type: 'scatter',
-        //     data: {
-        //         datasets: [
-        //             {
-        //                 label: 'Rotas',
-        //                 data: gerarPontos(35, 0, 60, 0, 1000),
-        //                 backgroundColor: '#111111cc',
-        //                 pointRadius: 5,
-        //                 pointHoverRadius: 7,
-        //             },
-        //             {
-        //                 label: 'Destaque',
-        //                 data: gerarPontos(8, 5, 55, 100, 900),
-        //                 backgroundColor: '#4a90d9cc',
-        //                 pointRadius: 8,
-        //                 pointHoverRadius: 10,
-        //             }
-        //         ]
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         maintainAspectRatio: false,
-        //         plugins: {
-        //             legend: { display: false },
-        //             tooltip: {
-        //                 backgroundColor: '#111',
-        //                 titleColor: '#fff',
-        //                 bodyColor: '#ccc',
-        //                 padding: 10,
-        //                 cornerRadius: 8,
-        //             }
-        //         },
-        //         scales: {
-        //             x: {
-        //                 min: 0, max: 60,
-        //                 ticks: { stepSize: 15, font: { family: 'Inter', size: 11 }, color: '#aaa' },
-        //                 grid: { color: '#f0f0ee' },
-        //                 border: { display: false },
-        //             },
-        //             y: {
-        //                 min: 0, max: 1000,
-        //                 ticks: { stepSize: 250, font: { family: 'Inter', size: 11 }, color: '#aaa' },
-        //                 grid: { color: '#f0f0ee' },
-        //                 border: { display: false },
-        //             }
-        //         }
-        //     }
-        // });
-
         function obterKPIVolumeDeTuristaMensal() {
             fetch(`/dashboardGeral/getQuantidadePassageirosUltimoMes`, { cache: "no-store" })
                 .then(function (response) {
                     if (response.ok) {
                         response.json().then(function (resposta) {
 
-                            kpi_valor_resumo.innerHTML = resposta.total_viagens;
+                            kpi_valor_resumo.innerHTML = resposta.total_passageiros_mes;
 
                         });
                     } else {
@@ -556,19 +446,7 @@
                 '#ff8a65'
             ];
 
-            /*
-            |--------------------------------------------------------------------------
-            | Descobre o último mês disponível
-            |--------------------------------------------------------------------------
-            */
-
             const ultimoMes = Math.max(...dados.map(item => item.mes));
-
-            /*
-            |--------------------------------------------------------------------------
-            | Seleciona TOP 10 UFs do último mês
-            |--------------------------------------------------------------------------
-            */
 
             const top5Ufs = dados
                 .filter(item => item.mes === ultimoMes)
@@ -580,12 +458,6 @@
                 .slice(0, 5)
                 .map(item => item.destino_uf);
 
-            /*
-            |--------------------------------------------------------------------------
-            | Meses disponíveis
-            |--------------------------------------------------------------------------
-            */
-
             const meses = [...new Set(dados.map(item => item.mes))]
                 .sort((a, b) => a - b);
 
@@ -593,11 +465,6 @@
                 mes => NOMES_MESES[mes - 1]
             );
 
-            /*
-            |--------------------------------------------------------------------------
-            | Agrupa dados por UF
-            |--------------------------------------------------------------------------
-            */
 
             const dadosPorUf = {};
 
@@ -611,12 +478,6 @@
                 dadosPorUf[item.destino_uf][item.mes] =
                     Number(item.crescimento_percentual);
             });
-
-            /*
-            |--------------------------------------------------------------------------
-            | Datasets
-            |--------------------------------------------------------------------------
-            */
 
             const datasets = Object.entries(dadosPorUf).map(
                 ([uf, valores], index) => ({
@@ -639,12 +500,6 @@
                     fill: false
                 })
             );
-
-            /*
-            |--------------------------------------------------------------------------
-            | Gráfico
-            |--------------------------------------------------------------------------
-            */
 
             new Chart(
                 document
@@ -734,11 +589,6 @@
                 }
             );
 
-            /*
-            |--------------------------------------------------------------------------
-            | Legenda personalizada
-            |--------------------------------------------------------------------------
-            */
 
             const legendaEl =
                 document.getElementById('legendaLinha');
@@ -763,7 +613,13 @@
 
         montarGrafico();
 
+        function isAdmin () {
+            if (sessionStorage.IS_ADMIN != 1) {
+                document.querySelector('.nav-item[href="../users-management/index.html"]').style.display = 'none';
+            }
+        }
 
+        isAdmin();
     </script>
 
 </body>

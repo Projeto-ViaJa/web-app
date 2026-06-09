@@ -23,7 +23,8 @@
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
         </svg>
       </div>
-      <span class="nome-usuario">User</span>
+      <span id="nome_usuario" class="nome-usuario">User</span>
+
     </div>
     <nav class="navegacao">
       <a href="../dashboard/index.html" class="nav-item">
@@ -317,6 +318,7 @@
   </main>
 
   <script>
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let parametrizacoes = [];
     let editandoId = null;
@@ -342,7 +344,7 @@
         );
       }
     }
-    
+
     async function cadastrarParametrizacao(dados) {
       try {
         const response = await fetch(
@@ -353,13 +355,13 @@
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-              tituloNotificacaoServer:dados.titulo,
-              descricaoServer:dados.descricao,
-              urlServer:dados.url,
-              canalServer:dados.canal,
-              fkUsuarioServer:sessionStorage.ID_USUARIO,
-              fkEmpresaServer:sessionStorage.ID_EMPRESA,
-              tiposLogServer:dados.tiposLog
+              tituloNotificacaoServer: dados.titulo,
+              descricaoServer: dados.descricao,
+              urlServer: dados.url,
+              canalServer: dados.canal,
+              fkUsuarioServer: sessionStorage.ID_USUARIO,
+              fkEmpresaServer: sessionStorage.ID_EMPRESA,
+              tiposLogServer: dados.tiposLog
             })
           }
         );
@@ -390,13 +392,13 @@
                 'application/json'
             },
             body: JSON.stringify({
-              idServer:editandoId,
-              tituloNotificacaoServer:document.getElementById('editTituloNotificacao').value.trim(),
-              descricaoServer:document.getElementById('editDescricao').value.trim(),
-              canalServer:document.getElementById('editCanal').value.trim(),
-              urlServer:document.getElementById('editUrl').value.trim(),
-              isAtivoServer:document.getElementById('editAtivo').value,
-              tiposLogServer:obterTiposEdicao()
+              idServer: editandoId,
+              tituloNotificacaoServer: document.getElementById('editTituloNotificacao').value.trim(),
+              descricaoServer: document.getElementById('editDescricao').value.trim(),
+              canalServer: document.getElementById('editCanal').value.trim(),
+              urlServer: document.getElementById('editUrl').value.trim(),
+              isAtivoServer: document.getElementById('editAtivo').value,
+              tiposLogServer: obterTiposEdicao()
             })
           });
         if (!response.ok) {
@@ -527,16 +529,16 @@
       document.getElementById('descricao').value = '';
       document.getElementById('canal').value = '';
       document.getElementById('url').value = '';
-      document.querySelectorAll('.tipoLog').forEach(item => {item.checked = false;});
+      document.querySelectorAll('.tipoLog').forEach(item => { item.checked = false; });
     }
 
     async function salvarCadastro() {
       const dados = {
-        titulo:document.getElementById('tituloNotificacao').value.trim(),
-        descricao:document.getElementById('descricao').value.trim(),
-        canal:document.getElementById('canal').value.trim(),
-        url:document.getElementById('url').value.trim(),
-        tiposLog:obterTiposCadastro()
+        titulo: document.getElementById('tituloNotificacao').value.trim(),
+        descricao: document.getElementById('descricao').value.trim(),
+        canal: document.getElementById('canal').value.trim(),
+        url: document.getElementById('url').value.trim(),
+        tiposLog: obterTiposCadastro()
       };
 
       if (
@@ -679,6 +681,15 @@
           `;
       }
     }
+
+    function isAdmin() {
+      if (sessionStorage.IS_ADMIN != 1) {
+        document.querySelector('.nav-item[href="../users-management/index.html"]').style.display = 'none';
+      }
+    }
+
+    isAdmin();
   </script>
 </body>
+
 </html>

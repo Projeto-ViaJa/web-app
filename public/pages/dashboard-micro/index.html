@@ -217,15 +217,15 @@
             <div class="card-grafico card-scatter">
                 <div class="cabecalho-grafico">
                     <div class="info-grafico">
-                        <div class="titulo-grafico">Fluxo por rotas<span class="titulo-sep">/</span> Mês</div>
+                        <div class="titulo-grafico">Fluxo de passageiros por rota<span class="titulo-sep">/</span> Mês
+                        </div>
                     </div>
                     <span class="info-icon" tabindex="0">i
                         <span class="tooltip-box">
                             <div class="tooltip-title"> Fluxo por rotas / Mês</div>
-                            <div class="tooltip-desc">Grafico Scatter onde cada ponto representa uma rota, quanto maior
-                                o fluxo,
-                                mais na parte superior a bolha é alocada, e quanto mais recente o mês, mais a bolha é
-                                alocada para direita.</div>
+                            <div class="tooltip-desc">Heatmap onde cada linha representa uma rota, cada coluna
+                                representa um mês, cada retângulo representa e contém a quantidade de passageiros dessa
+                                rota. Quanto maior o fluxo, mais escuro e acima dos outros o retângulo fica.</div>
                         </span>
                     </span>
                 </div>
@@ -515,6 +515,7 @@
                     },
 
                     xaxis: {
+                        position: 'top',
                         labels: {
                             style: {
                                 fontSize: '12px'
@@ -705,7 +706,13 @@
 
         obterDadosLocalidade();
 
+        function isAdmin () {
+            if (sessionStorage.IS_ADMIN != 1) {
+                document.querySelector('.nav-item[href="../users-management/index.html"]').style.display = 'none';
+            }
+        }
 
+        isAdmin();
     </script>
 
 </body>

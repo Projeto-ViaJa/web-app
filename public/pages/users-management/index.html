@@ -1,18 +1,22 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>P – Crud | Usuários</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="../../css/users-management/style.css" />
-      <link rel="shortcut icon" href="../../assets/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/favicon.ico" type="image/x-icon">
 
 </head>
+
 <body>
-   <aside class="menu-lateral">
+  <aside class="menu-lateral">
     <div class="perfil-usuario">
       <div class="foto-perfil">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
@@ -20,7 +24,8 @@
           <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
         </svg>
       </div>
-      <span class="nome-usuario">User</span>
+      <span id="nome_usuario" class="nome-usuario">User</span>
+
     </div>
     <nav class="navegacao">
       <a href="../dashboard/index.html" class="nav-item">
@@ -100,19 +105,22 @@
       <div class="barra-busca">
         <div class="campo-busca-wrap">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
-          <input class="campo-busca" type="text" placeholder="" id="campoBusca"/>
+          <input class="campo-busca" type="text" placeholder="" id="campoBusca"
+            oninput="fetchUsuariosPorNome(this.value)" />
         </div>
+        <button class="botao botao-escuro" onclick="abrirModalCadastro()">Adicionar Usuário</button>
         <button class="botao botao-escuro" onclick="filtrarTabela()">Filtrar</button>
-        <button class="botao botao-claro"  onclick="limparFiltro()">Limpar Filtros</button>
+        <button class="botao botao-claro" onclick="limparFiltro()">Limpar Filtros</button>
       </div>
     </div>
     <div class="wrapper-tabela">
       <table class="tabela-dados" id="tabelaUsuarios">
         <thead>
           <tr>
+            <th>Nome</th>
             <th>E-mail</th>
             <th>Empresa</th>
             <th>Status</th>
@@ -132,17 +140,17 @@
       <h2 class="modal-titulo">Editar Usuário</h2>
       <button class="modal-fechar" onclick="fecharModal()">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
       </button>
     </div>
     <div class="modal-corpo">
       <label class="campo-label">E-mail
-        <input class="campo-input" type="email" id="editEmail"/>
+        <input class="campo-input" type="email" id="editEmail" />
       </label>
       <label class="campo-label">Empresa
-        <input class="campo-input" type="text" id="editEmpresa"/>
+        <input class="campo-input" type="text" id="editEmpresa" />
       </label>
       <label class="campo-label">Status
         <select class="campo-input" id="editStatus">
@@ -151,7 +159,7 @@
         </select>
       </label>
       <label class="campo-label">Nível
-        <input class="campo-input" type="number" min="1" max="5" id="editNivel"/>
+        <input class="campo-input" type="number" min="1" max="5" id="editNivel" />
       </label>
     </div>
     <div class="modal-rodape">
@@ -160,7 +168,33 @@
     </div>
   </div>
 
+
+  <div class="modal" id="modal-adicionar">
+    <div class="modal-corpo">
+      <label class="campo-label">Nome
+        <input class="campo-input" type="text" id="addNome" />
+      </label>
+      <label class="campo-label">E-mail
+        <input class="campo-input" type="email" id="addEmail" />
+      </label>
+      <label class="campo-label">Senha
+        <input class="campo-input" type="password" id="addSenha" />
+      </label>
+      <label class="campo-label">Empresa
+        <input class="campo-input" type="text" id="addEmpresa" />
+      </label>
+      <label class="campo-label">Nível
+        <input class="campo-input" type="number" min="1" max="5" id="addNivel" />
+      </label>
+    </div>
+    <div class="modal-rodape">
+      <button class="botao botao-claro" onclick="fecharModal()">Cancelar</button>
+      <button class="botao botao-escuro" onclick="cadastrarUsuario()">Salvar</button>
+    </div>
+  </div>
   <script>
+    nome_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
     let usuarios = [];
     let listaFiltrada = [];
     let editandoId = null;
@@ -170,6 +204,7 @@
         if (!response.ok) throw new Error('Erro ao buscar usuários');
         usuarios = await response.json();
         usuarios = usuarios.map(u => ({
+          nome: u.nome,
           id: u.id_usuario,
           email: u.email_usuario,
           empresa: u.empresa,
@@ -218,6 +253,7 @@
         if (!u.ativo) tr.classList.add('linha-desativada');
 
         tr.innerHTML = `
+          <td>${u.nome}</td>
           <td>${u.email}</td>
           <td>${u.empresa}</td>
           <td><span class="badge-status ${u.status === 'Ativo' ? 'ativo' : 'inativo'}">${u.status}</span></td>
@@ -265,10 +301,10 @@
       const u = usuarios.find(x => x.id === id);
       if (!u) return;
       editandoId = id;
-      document.getElementById('editEmail').value     = u.email;
-      document.getElementById('editEmpresa').value   = u.empresa;
-      document.getElementById('editStatus').value    = u.status;
-      document.getElementById('editNivel').value     = u.nivel;
+      document.getElementById('editEmail').value = u.email;
+      document.getElementById('editEmpresa').value = u.empresa;
+      document.getElementById('editStatus').value = u.status;
+      document.getElementById('editNivel').value = u.nivel;
       document.getElementById('modal').classList.add('aberto');
       document.getElementById('overlay').classList.add('aberto');
     }
@@ -276,15 +312,16 @@
     function fecharModal() {
       document.getElementById('modal').classList.remove('aberto');
       document.getElementById('overlay').classList.remove('aberto');
+      document.getElementById('modal-adicionar').classList.remove('aberto');
       editandoId = null;
     }
 
     function salvarEdicao() {
       const dados = {
-        email:     document.getElementById('editEmail').value.trim(),
-        empresa:   document.getElementById('editEmpresa').value.trim(),
-        ativo:     document.getElementById('editStatus').value === 'Ativo',
-        nivel:     Number(document.getElementById('editNivel').value)
+        email: document.getElementById('editEmail').value.trim(),
+        empresa: document.getElementById('editEmpresa').value.trim(),
+        ativo: document.getElementById('editStatus').value === 'Ativo',
+        nivel: Number(document.getElementById('editNivel').value)
       };
       if (!dados.email) {
         mostrarToast('Preencha o email.');
@@ -297,7 +334,90 @@
     function mostrarToast(mensagem) {
       alert(mensagem);
     }
+
+    function abrirModalCadastro() {
+      document.getElementById('addEmail').value = ``;
+      document.getElementById('addSenha').value = ``;
+      document.getElementById('addNome').value = ``;
+      document.getElementById('addEmpresa').value = ``;
+      document.getElementById('addNivel').value = ``;
+      document.getElementById('modal-adicionar').classList.add('aberto');
+      document.getElementById('overlay').classList.add('aberto');
+    }
+
+    function cadastrarUsuario() {
+      const dados = {
+        nome: document.getElementById('addNome').value.trim(),
+        email: document.getElementById('addEmail').value.trim(),
+        senha: document.getElementById('addSenha').value.trim(),
+        empresa: document.getElementById('addEmpresa').value.trim(),
+        nivel: Number(document.getElementById('addNivel').value)
+      };
+      if (!dados.nome || !dados.email || !dados.senha || !dados.empresa) {
+        mostrarToast('Preencha todos os campos.');
+        return;
+      }
+
+      fetch("/usuarios/cadastrarComum", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nomeServer: dados.nome,
+          emailServer: dados.email,
+          senhaServer: dados.senha,
+          idEmpresaServer: dados.empresa
+        }),
+      })
+        .then(function (resposta) {
+          console.log("resposta: ", resposta);
+
+          if (resposta.ok) {
+            alert("Cadastro realizado com sucesso!");
+          } else {
+            return resposta.json().then(data => {
+              throw new Error(data.erro || "Houve um erro ao tentar realizar o cadastro!");
+            });
+          }
+        })
+        .catch(function (erro) {
+          console.log(`#ERRO: ${erro.message}`);
+          alert(`Erro ao cadastrar: ${erro.message}`);
+        });
+
+      fecharModal();
+    }
+
+    async function fetchUsuariosPorNome(nome) {
+      if (nome == '') {
+        fetchUsuarios();
+        return;
+      }
+
+      try {
+        const response = await fetch(`/usuarios/listarPorNome/${nome}`);
+        if (!response.ok) throw new Error('Erro ao buscar usuários');
+        usuarios = await response.json();
+        usuarios = usuarios.map(u => ({
+          nome: u.nome,
+          id: u.id_usuario,
+          email: u.email_usuario,
+          empresa: u.empresa,
+          status: u.ativo ? 'Ativo' : 'Inativo',
+          data: '',
+          nivel: u.nivel,
+          ativo: u.ativo
+        }));
+        listaFiltrada = [...usuarios];
+        renderizar(listaFiltrada);
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao carregar usuários.');
+      }
+    }
   </script>
 
 </body>
+
 </html>

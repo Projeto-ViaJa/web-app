@@ -76,6 +76,8 @@ function cadastrar() {
     });
 }
 
+
+
 function validarNome() {
   let nome = in_nome.value.trim();
 
