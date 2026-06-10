@@ -18,10 +18,11 @@ function cadastrar(nome, email, senha, fkEmpresa) {
 
 function cadastrarComum(nome, email, senha, fkEmpresa) {
     var instrucaoSql = `
-        INSERT INTO usuario (nome, email_usuario, senha, fk_empresa, is_admin, ativo, nivel) VALUES (?, ?, ?, ?, 0, 1, 1);
+        INSERT INTO usuario (nome, email_usuario, senha, fk_empresa, is_admin, ativo, nivel) 
+        VALUES (${nome}, ${email}, ${senha}, ${fkEmpresa}, 0, 1, 1);
     `;
 
-    return database.executar(instrucaoSql, [nome, email, senha, fkEmpresa]);
+    return database.executar(instrucaoSql);
 }
 
 function editar(id, nome, email_usuario, senha, fkEmpresa, ativo, nivel) {
