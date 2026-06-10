@@ -580,3 +580,19 @@ body {
       transform: translateX(-50%) translateY(0);
     }
 
+.botao:disabled,
+.botao[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(40%);
+  pointer-events: none;
+}
+
+/* opcional: ajustar aparência específica do botão escuro quando desativado */
+.botao-escuro:disabled,
+.botao-escuro[disabled] {
+  background: #6b6b6b;
+  border-color: #6b6b6b;
+  color: var(--cor-branco);
+}
+
