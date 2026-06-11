@@ -149,9 +149,9 @@
       <label class="campo-label">E-mail
         <input class="campo-input" type="email" id="editEmail" />
       </label>
-      <label class="campo-label">Empresa
+      <!-- <label class="campo-label">Empresa
         <input class="campo-input" type="text" id="editEmpresa" />
-      </label>
+      </label> -->
       <label class="campo-label">Status
         <select class="campo-input" id="editStatus">
           <option value="Ativo">Ativo</option>
@@ -231,7 +231,6 @@
             nomeServer: '',
             emailServer: dados.email,
             senhaServer: '',
-            fkEmpresaServer: 1,
             ativoServer: dados.ativo,
             nivelServer: dados.nivel
           })
@@ -302,7 +301,7 @@
       if (!u) return;
       editandoId = id;
       document.getElementById('editEmail').value = u.email;
-      document.getElementById('editEmpresa').value = u.empresa;
+      // document.getElementById('editEmpresa').value = u.empresa;
       document.getElementById('editStatus').value = u.status;
       document.getElementById('editNivel').value = u.nivel;
       document.getElementById('modal').classList.add('aberto');
@@ -319,7 +318,7 @@
     function salvarEdicao() {
       const dados = {
         email: document.getElementById('editEmail').value.trim(),
-        empresa: document.getElementById('editEmpresa').value.trim(),
+        // empresa: document.getElementById('editEmpresa').value.trim(),
         ativo: document.getElementById('editStatus').value === 'Ativo',
         nivel: Number(document.getElementById('editNivel').value)
       };

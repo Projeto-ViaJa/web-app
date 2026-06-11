@@ -104,7 +104,6 @@ function editarUsuario(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.fkEmpresaServer;
     var ativo = req.body.ativoServer;
     var nivel = req.body.nivelServer;
 
@@ -116,14 +115,12 @@ function editarUsuario(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa está undefined!");
     } else if (ativo == undefined) {
         res.status(400).send("Status está undefined!");
     } else if (nivel == undefined) {
         res.status(400).send("Nível está undefined!");
     } else {
-        usuarioModel.editar(id, nome, email, senha, fkEmpresa, ativo, nivel)
+        usuarioModel.editar(id, nome, email, senha, ativo, nivel)
             .then(
                 function (resultado) {
                     res.json(resultado);
