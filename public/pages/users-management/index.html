@@ -112,8 +112,8 @@
             oninput="fetchUsuariosPorNome(this.value)" />
         </div>
         <button class="botao botao-escuro" onclick="abrirModalCadastro()">Adicionar Usuário</button>
-        <button class="botao botao-escuro" onclick="filtrarTabela()">Filtrar</button>
-        <button class="botao botao-claro" onclick="limparFiltro()">Limpar Filtros</button>
+        <!-- <button class="botao botao-escuro" onclick="filtrarTabela()">Filtrar</button>
+        <button class="botao botao-claro" onclick="limparFiltro()">Limpar Filtros</button> -->
       </div>
     </div>
     <div class="wrapper-tabela">
@@ -180,9 +180,9 @@
       <label class="campo-label">Senha
         <input class="campo-input" type="password" id="addSenha" />
       </label>
-      <label class="campo-label">Empresa
+      <!-- <label class="campo-label">Empresa
         <input class="campo-input" type="text" id="addEmpresa" />
-      </label>
+      </label> -->
       <label class="campo-label">Nível
         <input class="campo-input" type="number" min="1" max="5" id="addNivel" />
       </label>
@@ -339,7 +339,7 @@
       document.getElementById('addEmail').value = ``;
       document.getElementById('addSenha').value = ``;
       document.getElementById('addNome').value = ``;
-      document.getElementById('addEmpresa').value = ``;
+      // document.getElementById('addEmpresa').value = ``;
       document.getElementById('addNivel').value = ``;
       document.getElementById('modal-adicionar').classList.add('aberto');
       document.getElementById('overlay').classList.add('aberto');
@@ -350,7 +350,7 @@
         nome: document.getElementById('addNome').value.trim(),
         email: document.getElementById('addEmail').value.trim(),
         senha: document.getElementById('addSenha').value.trim(),
-        empresa: document.getElementById('addEmpresa').value.trim(),
+        empresa: sessionStorage.ID_EMPRESA,
         nivel: Number(document.getElementById('addNivel').value)
       };
       if (!dados.nome || !dados.email || !dados.senha || !dados.empresa) {
