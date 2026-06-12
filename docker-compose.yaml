@@ -28,11 +28,11 @@ services:
       MYSQL_DATABASE: viaja_dev
 
     ports:
-      - "3306:3306"
+      - "3307:3306"
 
     volumes:
       - db_data:/var/lib/mysql
-      - /home/ubuntu/bd-config/script-viaja-v3.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ../bd-config/script-viaja-v3.sql:/docker-entrypoint-initdb.d/01-init.sql
 
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p123456"]
@@ -42,7 +42,7 @@ services:
       start_period: 30s
 
   jar:
-    build: /home/ubuntu/java-service
+    build: ../java-service
     container_name: viaja-jar
 
     depends_on:
@@ -61,6 +61,9 @@ services:
       DB_DATABASE: viaja_dev
       DB_USER: root
       DB_PASSWORD: 123456
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN}
 
 volumes:
   db_data:

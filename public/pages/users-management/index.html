@@ -165,6 +165,7 @@
     <div class="modal-rodape">
       <button class="botao botao-claro" onclick="fecharModal()">Cancelar</button>
       <button class="botao botao-escuro" onclick="salvarEdicao()">Salvar</button>
+      <button class="botao-acao desativar" onclick="apagarUsuario()">Apagar</button>
     </div>
   </div>
 
@@ -243,6 +244,7 @@
         mostrarToast('Erro ao editar usuário.');
       }
     }
+
     function renderizar(lista) {
       const tbody = document.getElementById('linhasUsuarios');
       tbody.innerHTML = '';
@@ -385,6 +387,7 @@
           alert(`Erro ao cadastrar: ${erro.message}`);
         });
 
+      window.location.reload();
       fecharModal();
     }
 
@@ -415,6 +418,25 @@
         mostrarToast('Erro ao carregar usuários.');
       }
     }
+
+    async function apagarUsuario() {
+  if (!confirm('Tem certeza que deseja apagar este usuário?')) return;
+
+  try {
+    const response = await fetch(`/usuarios/excluir/${editandoId}`, {
+      method: 'DELETE'
+    });
+    if (!response.ok) throw new Error('Erro ao excluir');
+    fecharModal();
+    await fetchUsuarios();
+    mostrarToast('Usuário excluído com sucesso!');
+  } catch (error) {
+    console.error(error);
+    mostrarToast('Erro ao excluir.');
+  }
+}
+
+
   </script>
 
 </body>

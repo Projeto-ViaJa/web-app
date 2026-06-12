@@ -242,6 +242,7 @@ body {
 }
 .botao-claro:hover { background: var(--cor-fundo-claro); }
 
+
 .wrapper-tabela {
   flex: 1;
   overflow-y: auto;
