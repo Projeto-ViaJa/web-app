@@ -42,23 +42,31 @@ function excluir(id) {
     return database.executar(instrucaoSql, [id]);
 }
 
-function listar() {
-    var instrucaoSql = `SELECT u.id_usuario, u.nome, u.email_usuario, u.fk_empresa, e.nome_fantasia as empresa, u.ativo, u.nivel FROM usuario u JOIN empresa e ON u.fk_empresa = e.id_empresa`;
-    return database.executar(instrucaoSql);
+function listar(fkEmpresa) {
+    var instrucaoSql = `SELECT u.id_usuario, 
+                                u.nome, 
+                                u.email_usuario, 
+                                u.fk_empresa, 
+                                e.nome_fantasia as empresa, 
+                                u.ativo, 
+                                u.nivel 
+        FROM usuario u JOIN empresa e ON u.fk_empresa = e.id_empresa
+        WHERE u.fk_empresa = ?`;
+    return database.executar(instrucaoSql, [fkEmpresa]);
 }
 
-function listarPorNome(nome) {
-    var instrucaoSql = `SELECT u.id_usuario,
-        u.nome,
-        u.email_usuario,
-        u.fk_empresa,
-        e.nome_fantasia as empresa,
-        u.ativo,
-        u.nivel
+
+function listarPorNome(nome, fkEmpresa) {
+    var instrucaoSql = `SELECT u.id_usuario, 
+                                u.nome, 
+                                u.email_usuario, 
+                                u.fk_empresa,
+                                e.nome_fantasia as empresa, 
+                                u.ativo, 
+                                u.nivel
         FROM usuario u JOIN empresa e ON u.fk_empresa = e.id_empresa
-        WHERE u.nome LIKE "%${nome}%"
-    `;
-    return database.executar(instrucaoSql);
+        WHERE u.nome LIKE ? AND u.fk_empresa = ?`;
+    return database.executar(instrucaoSql, [`%${nome}%`, fkEmpresa]);
 }
 
 module.exports = {

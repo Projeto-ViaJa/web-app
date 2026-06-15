@@ -199,9 +199,11 @@
     let usuarios = [];
     let listaFiltrada = [];
     let editandoId = null;
+
     async function fetchUsuarios() {
+        const empresa = sessionStorage.ID_EMPRESA;
       try {
-        const response = await fetch('/usuarios/listar');
+        const response = await fetch(`/usuarios/listar?fkEmpresa=${empresa}`);
         if (!response.ok) throw new Error('Erro ao buscar usuários');
         usuarios = await response.json();
         usuarios = usuarios.map(u => ({
@@ -398,7 +400,7 @@
       }
 
       try {
-        const response = await fetch(`/usuarios/listarPorNome/${nome}`);
+        const response = await fetch(`/usuarios/listarPorNome/${nome}?fkEmpresa=${sessionStorage.ID_EMPRESA}`);
         if (!response.ok) throw new Error('Erro ao buscar usuários');
         usuarios = await response.json();
         usuarios = usuarios.map(u => ({

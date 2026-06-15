@@ -64,6 +64,7 @@ function cadastrar() {
       if (resposta.ok) {
         limparFormulario();
         alert("Cadastro realizado com sucesso!");
+        window.location.href = '../../pages/login/index.html';
       } else {
         return resposta.json().then(data => {
           throw new Error(data.erro || "Houve um erro ao tentar realizar o cadastro!");
