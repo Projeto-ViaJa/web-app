@@ -201,7 +201,7 @@
     let editandoId = null;
 
     async function fetchUsuarios() {
-        const empresa = sessionStorage.ID_EMPRESA;
+      const empresa = sessionStorage.ID_EMPRESA;
       try {
         const response = await fetch(`/usuarios/listar?fkEmpresa=${empresa}`);
         if (!response.ok) throw new Error('Erro ao buscar usuários');
@@ -231,7 +231,7 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             idServer: id,
-            nomeServer: '',
+            nomeServer: dados.nome || editandoNome, // ← usa o nome guardado
             emailServer: dados.email,
             senhaServer: '',
             ativoServer: dados.ativo,
@@ -294,9 +294,10 @@
 
     function toggleAtivo(id) {
       const u = usuarios.find(x => x.id === id);
+
       if (u) {
         const novoAtivo = !u.ativo;
-        editarUsuario(id, { email: u.email, ativo: novoAtivo, nivel: u.nivel });
+        editarUsuario(id, { nome: u.nome, email: u.email, ativo: novoAtivo, nivel: u.nivel });
       }
     }
 
@@ -304,8 +305,8 @@
       const u = usuarios.find(x => x.id === id);
       if (!u) return;
       editandoId = id;
+      editandoNome = u.nome; // ← guarda o nome atual
       document.getElementById('editEmail').value = u.email;
-      // document.getElementById('editEmpresa').value = u.empresa;
       document.getElementById('editStatus').value = u.status;
       document.getElementById('editNivel').value = u.nivel;
       document.getElementById('modal').classList.add('aberto');
@@ -422,21 +423,22 @@
     }
 
     async function apagarUsuario() {
-  if (!confirm('Tem certeza que deseja apagar este usuário?')) return;
+      if (!confirm('Tem certeza que deseja apagar este usuário?')) return;
 
-  try {
-    const response = await fetch(`/usuarios/excluir/${editandoId}`, {
-      method: 'DELETE'
-    });
-    if (!response.ok) throw new Error('Erro ao excluir');
-    fecharModal();
-    await fetchUsuarios();
-    mostrarToast('Usuário excluído com sucesso!');
-  } catch (error) {
-    console.error(error);
-    mostrarToast('Erro ao excluir.');
-  }
-}
+      try {
+        const response = await fetch(`/usuarios/excluir/${editandoId}`, {
+          method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Erro ao excluir');
+        fecharModal();
+        await fetchUsuarios();
+        location.reload();
+        mostrarToast('Usuário excluído com sucesso!');
+      } catch (error) {
+        console.error(error);
+        mostrarToast('Erro ao excluir.');
+      }
+    }
 
 
   </script>
