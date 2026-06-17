@@ -704,6 +704,13 @@
             }
         }
 
+        function acessarMicro(localidade, uf) {
+            sessionStorage.setItem("DESTINO_LOCALIDADE", localidade);
+            sessionStorage.setItem("DESTINO_UF", uf);
+
+            window.location.href = "../dashboard-micro/index.html";
+        }
+
         obterDadosLocalidade();
 
         function isAdmin () {
