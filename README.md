@@ -1,105 +1,288 @@
-<img src="https://user-images.githubusercontent.com/46379117/192358781-9ca879e4-e55e-4d0d-b876-f9a4a2ed9ae8.png" width="600px">
+# Viajá — Plataforma de Visualização de Dados do Setor Aéreo
 
-_Web Data Visualization = Visualização de Dados na Web_
+> Sistema web para análise e visualização de registros de voos brasileiros, composto por três repositórios que trabalham em conjunto via Docker Compose.
 
-_Implementação de Referência para o seu Projeto de Primeiro Semestre_
+---
 
-<hr>
-
-# Como usar
-
-1. Clone este repositório em sua máquina.
-
-
-1. Crie, no Banco de Dados, as tabelas necessárias para o funcionamento deste projeto.
-- Siga as instruções no arquivo **/src/database/script-tabelas.sql**
-
-
-3. Acesse o arquivo **app.js** e parametrize o ambiente.
-- Se você estiver utilizando o Ambiente de Produção (remoto), comente a linha 2 e deixe habilitada a linha 1 onde está o valor **var ambiente_processo = 'producao';**
-- Se você estiver utilizando o Ambiente de Desenvolvimento (local), comente a linha 1 e deixe habilitada a linha 2 onde está o valor **var ambiente_processo = 'desenvolvimento';**
-
-4. Adicione as credenciais de Banco de Dados no arquivo **.env** ou em **.env.dev**, seguindo as instruções neste.
-
-5. Acesse este repositório no seu terminal (GitBash ou VSCode) e execute os comandos abaixo:
+## Visão Geral da Arquitetura
 
 ```
-npm i
-``` 
-_O comando acima irá instalar as bibliotecas necessárias para o funcionamento do projeto. As bibliotecas a serem instaladas estão listadas no arquivo **package.json** então é muito importante que este não seja alterado. Será criada uma nova pasta/diretório chamado **node_modules** quando o comando for finalizado, que é onde as bibliotecas estão localizadas. Não altere a pasta/diretório._
+┌─────────────────────────────────────────────────────────────┐
+│                      docker-compose.yaml                    │
+│                       (web-app/)                            │
+│                                                             │
+│  ┌───────────────┐   ┌───────────────┐   ┌──────────────┐   │
+│  │   web-app     │   │  java-service │   │    bd-config │   │
+│  │  (Node.js)    │   │  (Java/Maven) │   │  (MySQL 8.0) │   │
+│  │  porta 3333   │   │  porta 8080   │   │  porta 3307  │   │
+│  └──────┬────────┘   └──────┬────────┘   └──────┬───────┘   │
+│         │                   │                   │           │
+│         └───────────────────┴───────────────────┘           │
+│                       docker compose                        │
+└─────────────────────────────────────────────────────────────┘
+```
+
+| Repositório | Tecnologia | Container | Função |
+|---|---|---|---|
+| `web-app` | Node.js + Express | `viaja-web` | Servidor web + frontend |
+| `java-service` | Java 21 + Maven | `viaja-jar` | ETL: baixa dados do S3 e insere no banco |
+| `bd-config` | MySQL 8.0 | `viaja-mysql` | Banco de dados e scripts SQL |
+
+---
+
+## Pré-requisitos
+
+- [Docker](https://docs.docker.com/get-docker/) e [Docker Compose](https://docs.docker.com/compose/install/) instalados
+- [Git](https://git-scm.com/) para clonar os repositórios
+- Credenciais AWS com acesso ao bucket `s3-viaja-arquivos` (necessário para o `java-service`)
+
+---
+
+## Estrutura de Repositórios
+
+Os três repositórios devem ser clonados como pastas irmãs no mesmo diretório pai:
 
 ```
-npm start
-``` 
+pasta-raiz/
+├── web-app/          ← contém o docker-compose.yaml
+├── java-service/
+└── bd-config/
+```
 
-_O comando acima irá iniciar seu projeto e efetuar os comandos de acordo com a sua parametrização feita nos passos anteriores._
+O `docker-compose.yaml` (localizado em `web-app/`) referencia os outros dois com caminhos relativos (`../bd-config/` e `../java-service/`).
 
-6. Para "ver" seu projeto funcionando, acesse em seu navegador o caminho **informado no terminal**.
+---
 
-7. Caso queira parar a execução, tecle **CTRL+C** no terminal em que o projeto está rodando.
+## Como Executar com Docker (recomendado)
 
-## Adicionar novo recurso ao projeto
+### 1. Clone os três repositórios
 
-**"Recurso? O que é?"** Enquanto no Banco de Dados chamamos as tabelas de "entidades", quando tratamos de desenvolvimento WEB usamos a palavra "recurso" para se referir a algo que podemos criar, ler, atualizar ou deletar [1]. Estas ações são conhecidas como CRUD: Create, Read, Update e Delete. Para acessar cada ação, usamos os métodos HTTP: POST, GET, PUT e DELETE [2]. (Há outros verbos, porém com estes já conseguimos efetuar CRUDs). 
+```bash
+git clone <url-do-web-app>
+git clone <url-do-java-service>
+git clone <url-do-bd-config>
+```
 
-**Tabela para ajudar a fazer a associação**
+### 2. Configure as variáveis de ambiente
 
-<table>
-  <tr>
-    <th>C.R.U.D</th>
-    <th>Ação</th>
-    <th>Tradução</th>
-    <th>Verbo HTTP *</th>
-    <th>Comando BD</th>
-  </tr>
-  <tr>
-    <td>C</td>
-    <td>Create</td>
-    <td>Criar</td>
-    <td>POST</td>
-    <td>INSERT</td>
-  </tr>
-  <tr>
-    <td>R</td>
-    <td>Read</td>
-    <td>Ler</td>
-    <td>GET</td>
-    <td>SELECT</td>
-  </tr>
-  <tr>
-    <td>U</td>
-    <td>Update</td>
-    <td>Atualizar</td>
-    <td>PUT</td>
-    <td>UPDATE</td>
-  </tr>
-  <tr>
-    <td>D</td>
-    <td>Delete</td>
-    <td>Deletar</td>
-    <td>DELETE</td>
-    <td>DELETE</td>
-  </tr>
-</table>
+Crie ou edite o arquivo `.env` dentro de `web-app/`, copiando o `.env.dev` como base:
 
-_* Você verá o verbo HTTP sendo apontado nos arquivos em /routes_
+```bash
+cp web-app/.env.dev web-app/.env
+```
 
-**"E no meu projeto, o que seria um recurso?"** Em web-data-viz manipulamos os recursos **usuário**, **aviso** e **medida**. Podemos conferir isso vendo para quais entidades foram criados os caminhos de inserção e captura de dados, que envolve os diretórios **routes**, **controllers** e **models**.
+Adicione também as credenciais AWS — obrigatórias para o `java-service` baixar o arquivo do S3:
 
-Abaixo, uma figura que ajuda a compreender o caminho percorrido para, por exemplo, efetuar o cadastro de um usuário:
+```bash
+# Em web-app/.env, adicione:
+AWS_ACCESS_KEY_ID=sua_chave
+AWS_SECRET_ACCESS_KEY=sua_chave_secreta
+AWS_SESSION_TOKEN=seu_token   # se usar credenciais temporárias
+```
 
+### 3. Faça o build do java-service
 
-![image](https://github.com/user-attachments/assets/d576f178-0da6-437e-b5c9-658e3ebaf6ca)
+Antes de subir o Docker Compose, o JAR do serviço Java precisa estar compilado:
 
+```bash
+cd java-service
+mvn clean package -DskipTests
+cd ..
+```
 
+### 4. Suba os containers
 
-**Entendi o que é um recurso e gostaria de adicionar um novo ao meu projeto! Como faz?**  
-- Primeiro, crie a tabela no Banco de Dados referente a este recurso. Exemplos de recursos comuns de serem adicionados ao projeto no primeiro semestre: Silo, Aquário, Sala, Andar, Endereço, Mercado, Prateleira, Unidade, Carro, Caminhão...  
-- Assim que criada a tabela, faça todo o caminho de **front-end → routes → controllers → models** replicando o que já existe!  
-- Exemplo, se você quiser a funcionalidade de adicionar um novo Aquário, deve criar arquivos referentes ao aquario nos diretórios e replicar também as funções.  
-- Dica: A implementação de AVISO já contém o CRUD completo! :wink:
- 
-### Fontes bibliográficas
+```bash
+cd web-app
+docker-compose up --build
+```
 
-[1] https://datatracker.ietf.org/doc/html/rfc2396  
-[2] https://datatracker.ietf.org/doc/html/rfc7231
+O Docker Compose vai:
+1. Criar e inicializar o banco MySQL (`viaja-mysql`) com o script `bd-config/script-viaja-v3.sql`
+2. Aguardar o banco estar saudável (healthcheck)
+3. Subir a aplicação Node.js (`viaja-web`) na porta `3333`
+4. Subir o serviço Java (`viaja-jar`) na porta `8080`, que executará o ETL automaticamente
+
+### 5. Acesse a aplicação
+
+```
+http://localhost:3333
+```
+
+Para parar os containers:
+
+```bash
+docker-compose down
+```
+
+Para parar e remover os volumes (apaga os dados do banco):
+
+```bash
+docker-compose down -v
+```
+
+---
+
+## Executar em Desenvolvimento (sem Docker)
+
+### web-app
+
+```bash
+cd web-app
+npm install
+npm run dev     # inicia com nodemon (hot-reload)
+```
+
+Configure o arquivo `.env.dev` com as credenciais do banco local antes de iniciar.
+
+### java-service
+
+```bash
+cd java-service
+mvn clean package -DskipTests
+java -jar target/java-service-1.0-SNAPSHOT.jar
+```
+
+Edite `db.properties` com os dados de conexão do banco local.
+
+---
+
+## Serviços e Portas
+
+| Serviço | Container | Porta (host → container) | Descrição |
+|---|---|---|---|
+| Web App  | `viaja-web`   | `3333 → 3333` | Frontend + API REST |
+| Java ETL | `viaja-jar`   | `8080 → 8080` | Carga de dados do S3 |
+|   MySQL  | `viaja-mysql` | `3307 → 3306` | Banco de dados |
+
+---
+
+## Repositórios
+
+### `web-app`
+
+Aplicação principal com frontend e backend em Node.js + Express.
+
+```
+web-app/
+├── app.js                  # Ponto de entrada, configuração do Express
+├── dockerfile
+├── docker-compose.yaml     # Orquestração dos três serviços
+├── public/                 # Frontend estático (HTML, CSS, JS)
+│   ├── index.html
+│   └── pages/              # dashboard, login, cadastro, calendário, hotéis...
+└── src/
+    ├── controllers/        # Lógica de negócio
+    ├── models/             # Queries SQL
+    ├── routes/             # Definição das rotas da API
+    └── database/           # Configuração da conexão MySQL
+```
+
+**Rotas disponíveis na API:**
+
+| Rota | Descrição |
+|---|---|
+| `GET /`           | Página inicial |
+| `/usuarios`       | Gerenciamento de usuários |
+| `/empresa`        | Dados de empresa |
+| `/dashboardGeral` | Dashboard com visão geral |
+| `/dashboardMicro` | Dashboard detalhado por empresa |
+| `/hoteis`         | Dados de hotéis |
+| `/calendario`     | Eventos e calendário |
+| `/params`         | Parâmetros gerais |
+
+### `java-service`
+
+Serviço ETL que baixa um arquivo Excel de um bucket S3 da AWS, processa os registros de voo e insere os dados no banco MySQL.
+
+```
+java-service/
+├── Dockerfile
+├── pom.xml
+├── db.properties           # Configuração de conexão com o banco
+└── src/main/java/
+    ├── Main.java                          # Ponto de entrada do ETL
+    ├── client/S3Provider.java             # Cliente AWS S3
+    ├── dataLoader/
+    │   ├── reader/ExcelRegistroVooReader  # Leitura do Excel com Apache POI
+    │   ├── service/RegistroVooService     # Filtragem e transformação
+    │   └── util/
+    ├── database/
+    │   ├── config/DB.java                 # Pool de conexões JDBC
+    │   └── model/dao/                     # Camada de acesso a dados
+    ├── entity/RegistroVoo.java            # Entidade de registro de voo
+    └── logger/
+        ├── AppLogger.java                 # Log4j2
+        └── SlackNotifier.java             # Notificações via Slack
+```
+
+O serviço notifica o status de cada etapa via Slack. Para configurar a integração, consulte o arquivo `SETUP_SLACK.md`.
+
+### `bd-config`
+
+Contém todos os artefatos relacionados ao banco de dados.
+
+```
+bd-config/
+├── script-viaja-v3.sql     # Script principal (usado pelo Docker Compose)
+├── bd-dev.sql              # Script de desenvolvimento
+├── querys-dashboard.sql    # Queries usadas no dashboard
+└── der-v11.mwb             # Diagrama Entidade-Relacionamento (MySQL Workbench)
+```
+
+**Principais tabelas:**
+
+| Tabela | Descrição |
+|---|---|
+| `empresa` | Empresas cadastradas na plataforma |
+| `usuario` | Usuários vinculados às empresas |
+| `eventosRegistrados` | Eventos do calendário por empresa |
+| `registro_voo` | Base histórica de 10 anos de voos brasileiros |
+
+---
+
+## Variáveis de Ambiente
+
+### web-app (`.env` / `.env.dev`)
+
+| Variável | Descrição | Exemplo |
+|---|---|---|
+| `DB_HOST` | Host do banco de dados | `127.0.0.1` / `db` (Docker) |
+| `DB_DATABASE` | Nome do banco | `viaja_dev` |
+| `DB_USER` | Usuário do banco | `root` |
+| `DB_PASSWORD` | Senha do banco | `123456` |
+| `DB_PORT` | Porta do banco | `3306` |
+| `APP_PORT` | Porta da aplicação | `3333` |
+| `APP_HOST` | Host da aplicação | `0.0.0.0` |
+
+### java-service (via Docker Compose ou ambiente)
+
+| Variável | Descrição |
+|---|---|
+| `DB_HOST` | Host do banco |
+| `DB_PORT` | Porta do banco |
+| `DB_DATABASE` | Nome do banco |
+| `DB_USER` | Usuário do banco |
+| `DB_PASSWORD` | Senha do banco |
+| `AWS_ACCESS_KEY_ID` | Chave de acesso AWS |
+| `AWS_SECRET_ACCESS_KEY` | Chave secreta AWS |
+| `AWS_SESSION_TOKEN` | Token de sessão AWS (temporário) |
+
+---
+
+## Tecnologias Utilizadas
+
+| Camada | Tecnologia |
+|---|---|
+| Frontend | HTML, CSS, JavaScript |
+| Backend Web | Node.js 18, Express 4, mysql2 |
+| ETL | Java 21, Maven, Apache POI, AWS SDK v2 |
+| Banco de Dados | MySQL 8.0 |
+| Containerização | Docker, Docker Compose |
+| Monitoramento | Log4j2, Slack Webhooks |
+
+---
+
+## Desenvolvido por
+
+São Paulo Tech School / Bandtec Digital School
