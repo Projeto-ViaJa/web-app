@@ -44,12 +44,10 @@ function cadastrar(req, res) {
         res.status(400).json({ erro: "Seu nome está undefined!" });
     } else if (email == undefined) {
         res.status(400).json({ erro: "Seu email está undefined!" });
-    } else if (senha == undefined) {
-        res.status(400).json({ erro: "Sua senha está undefined!" });
     } else if (fkEmpresa == undefined) {
         res.status(400).json({ erro: "Sua empresa a vincular está undefined!" });
     } else {
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);

@@ -24,17 +24,16 @@ function cadastrarComum(nome, email, senha, fkEmpresa) {
     return database.executar(instrucaoSql, [nome, email, senha, fkEmpresa]);
 }
 
-function editar(id, nome, email_usuario, senha, ativo, nivel) {
+function editar(id, nome, email_usuario, ativo, nivel) {
     var instrucaoSql = `
         UPDATE usuario SET
             nome = ?,
             email_usuario = ?,
-            senha = ?,
             ativo = ?,
             nivel = ?
         WHERE id_usuario = ?
     `;
-    return database.executar(instrucaoSql, [nome, email_usuario, senha, ativo, nivel, id])
+    return database.executar(instrucaoSql, [nome, email_usuario, ativo, nivel, id])
 }
 
 function excluir(id) {
