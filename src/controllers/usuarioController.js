@@ -38,7 +38,6 @@ function autenticar(req, res) {
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
     var fkEmpresa = req.body.idEmpresaServer;
     if (nome == undefined) {
         res.status(400).json({ erro: "Seu nome está undefined!" });
