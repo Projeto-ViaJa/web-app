@@ -38,15 +38,18 @@ function autenticar(req, res) {
 function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
+    var senha = req.body.senhaServer;
     var fkEmpresa = req.body.idEmpresaServer;
     if (nome == undefined) {
         res.status(400).json({ erro: "Seu nome está undefined!" });
     } else if (email == undefined) {
         res.status(400).json({ erro: "Seu email está undefined!" });
+    } else if (senha == undefined) {
+        res.status(400).json({ erro: "Sua senha está undefined!" });
     } else if (fkEmpresa == undefined) {
         res.status(400).json({ erro: "Sua empresa a vincular está undefined!" });
     } else {
-        usuarioModel.cadastrar(nome, email, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
             .then(
                 function (resultado) {
                     res.json(resultado);
@@ -100,7 +103,6 @@ function editarUsuario(req, res) {
     var id = req.body.idServer;
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
-    var senha = req.body.senhaServer;
     var ativo = req.body.ativoServer;
     var nivel = req.body.nivelServer;
 
@@ -110,14 +112,12 @@ function editarUsuario(req, res) {
         res.status(400).send("Seu nome está undefined!");
     } else if (email == undefined) {
         res.status(400).send("Seu email está undefined!");
-    } else if (senha == undefined) {
-        res.status(400).send("Sua senha está undefined!");
-    } else if (ativo == undefined) {
+    }else if (ativo == undefined) {
         res.status(400).send("Status está undefined!");
     } else if (nivel == undefined) {
         res.status(400).send("Nível está undefined!");
     } else {
-        usuarioModel.editar(id, nome, email, senha, ativo, nivel)
+        usuarioModel.editar(id, nome, email, ativo, nivel)
             .then(
                 function (resultado) {
                     res.json(resultado);
